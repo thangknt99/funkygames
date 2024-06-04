@@ -1,6 +1,6 @@
 import HeadingText from '@/components/utils/HeadingText'
 import ViewDetect from '@/components/utils/ViewDetect'
-import { Flex, Image, Link, ListItem, Text, UnorderedList } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 import React from 'react'
 import styles from '../css/ContentDisplay.module.css'
 
@@ -19,7 +19,6 @@ const Introduction = () => {
             <br/>
             All date and time returned from this API are based on GMT+0. See appendix for more details.
           </Text>
-       
         </div>
       </div>
     </ViewDetect>

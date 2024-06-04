@@ -3,7 +3,6 @@ import HeadingText from '@/components/utils/HeadingText'
 import { Flex } from '@chakra-ui/react'
 import styles from '../css/ContentDisplay.module.css'
 import React from 'react'
-import ApiIntegration from './ApiIntegration'
 import ErrorCode from './ErrorCode'
 import Authentication from './Authentication'
 import Overview from './Overview'
@@ -29,7 +28,6 @@ const Preview = () => {
       <Authentication/>
       <ErrorCode/>
       <ChangeLog/>
-      <ApiIntegration/>
     </>
   )
 }
