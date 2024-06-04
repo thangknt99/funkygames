@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import HeadingText from '@/components/utils/HeadingText'
 import ViewDetect from '@/components/utils/ViewDetect'
 import { Flex, Text } from '@chakra-ui/react'
