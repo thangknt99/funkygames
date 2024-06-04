@@ -16,7 +16,6 @@ const Introduction = () => {
         <div className={styles.inside_section}>
           <Text my={"1em"}>This API defines general guideline and set of functions for integrating middleware system with fund provider's system.
             <br/>
-            <br/>
             All date and time returned from this API are based on GMT+0. See appendix for more details.
           </Text>
         </div>
