@@ -14,6 +14,8 @@ type TApiContainerProps = {
 
 const ApiContainer = ({data}: TApiContainerProps) => {
   const [isShowResponses, setIsShowResponses] = useState(true)
+  console.log(data);
+  
 
   return (
     <>
@@ -73,7 +75,7 @@ const ApiContainer = ({data}: TApiContainerProps) => {
               <div className={styles.next_section}>
                 <Box>
                   {api.sample.map((sample, i) => (
-                    <>
+                    <Box key={i}>
                       <Text color='#fff' fontSize={"18px"} fontWeight={"bold"} my={"16px"}>{sample.name}</Text>
                       <Box>
                         <Box>
@@ -96,7 +98,7 @@ const ApiContainer = ({data}: TApiContainerProps) => {
                           </Box>
                         </Box>
                       </Box>
-                    </>
+                    </Box>
                   ))}
                 </Box>
               </div>

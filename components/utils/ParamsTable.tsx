@@ -14,9 +14,8 @@ const ParamsTable = ({data}: TParamsTableProps) => {
     <>
       <h5>{data.name}{data.description && ":"} <span className={styles.note}>{data.description}</span></h5>
       <table className={styles.parameter_table}>
-        <tbody>
           {data.params.map((item, i) => (
-            <>
+        <tbody key={i}>
               <tr>
                 <td className={styles.parameter_text}>
                   <span className={styles.noted_table_item}/>
@@ -30,7 +29,7 @@ const ParamsTable = ({data}: TParamsTableProps) => {
                   <Text color={"rgb(102, 102, 102)"} sx={requirementText}>{item.type}</Text>
                   {item.name !== "errorCode" ? 
                     <Text>{item.description}</Text> : 
-                    <Text>{item.description.split(",").map((item) => <><code>{item}</code>{" "}</>)}</Text>}
+                    <Text>{item.description.split(",").map((item, i) => <code key={i}>{item}</code>)}</Text>}
                 </div>
                 </td>
               </tr>
@@ -60,9 +59,8 @@ const ParamsTable = ({data}: TParamsTableProps) => {
                   </Box>
                 </td>
               </tr>}
-            </>
-          ))}
         </tbody>
+          ))}
       </table>
     </>
   )

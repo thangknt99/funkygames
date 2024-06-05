@@ -8,6 +8,7 @@ import Authentication from './Authentication'
 import Overview from './Overview'
 import Introduction from './Introduction'
 import ChangeLog from './ChangeLog'
+import Appendix from './Appendix'
 
 const Preview = () => {
   
@@ -28,6 +29,7 @@ const Preview = () => {
       <Authentication/>
       <ErrorCode/>
       <ChangeLog/>
+      <Appendix/>
     </>
   )
 }

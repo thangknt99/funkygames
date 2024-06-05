@@ -1,3 +1,4 @@
+import { json } from "stream/consumers"
 import { ApiEnum } from "../enum"
 
 export const data = [
@@ -260,15 +261,36 @@ export const data = [
         type: ApiEnum.POST,
       },
       {
-        name: "Transaction Report API by Statement Date",
-        id: "transaction_report_api_statement_date",
+        name: "Provider and game types",
+        id: "provider_game_types",
         type: ApiEnum.POST,
       },
       {
-        name: "Win/Loss Report API by Statement Date",
-        id: "win_loss_report_api_statement_date",
+        name: "Pagination",
+        id: "pagination",
         type: ApiEnum.POST,
       },
+      {
+        name: "Language",
+        id: "language",
+        type: ApiEnum.POST,
+      },
+      {
+        name: "Date time in input and output",
+        id: "date_time_input_output",
+        type: ApiEnum.POST,
+      },
+      {
+        name: "Supported timezone",
+        id: "supported_timezone",
+        type: ApiEnum.POST,
+      },
+      {
+        name: "Mimi seamless diagram",
+        id: "mimi_seamless_diagram",
+        type: ApiEnum.POST,
+      },
+      
     ]
   },
 ]
@@ -435,159 +457,48 @@ export const changeLog = [
 
 ]
 
-export const language = [
- 
-  {name: "Chinese",	code: "ZH_CN", iso: "ZH"},
-  {name: "Thai",	code: "TH_TH", iso: "TH"},
-  {name: "Vietnamese",	code: "VI_VN", iso: "VI"},
-  {name: "Indonesian",	code: "ID_ID", iso: "ID"},
-  {name: "Burmese",	code: "MY_MM", iso: "MY"},
-  {name: "Hindi",	code: "HI_IN", iso: "HI"},
-  {name: "Malay",	code: "MS_MY", iso: "MS"},
-  {name: "Korean",	code: "KO_KR", iso: "KO"},
-  {name: "Japanese",	code: "JA_JP", iso: "JA"},
-  {name: "German",	code: "DE_DE", iso: "DE"},
-  {name: "Spanish",	code: "ES_ES", iso: "ES"},
-  {name: "French",	code: "FR_FR", iso: "FR"},
-  {name: "Russian",	code: "RU_RU", iso: "RU"},
-  {name: "Portuguese",	code: "PT_PT", iso: "PT"},
-  {name: "Latin Spanish",	code: "ES_LA", iso: "ES"},
-  {name: "Portuguese",	code: "PT_BR", iso: "PT"},
-  {name: "Arabic",	code: "AR_AE", iso: "AR"},
-  {name: "Bangla",	code: "BN_BD", iso: "BN"},
-  {name: "Turkish",	code: "TR_TR", iso: "TR"},
-  {name: "English(No Gambling Sign)",	code: "EN_SC", iso: "EN"},
-  {name: "Burmese(No Gambling Sign)",	code: "MM_SC", iso: "MM"},
-]
-
 export const apiData = [
   {
-    title: "How to Launch the game",
-    id: "how_to_launch",
+    title: "Account",
+    id: "account",
     api: [
       {
-        title: "Launch Game API",
-        id: "launch_api",
+        title: "CreatePlayer",
+        id: "createplayer",
         type: ApiEnum.POST,
-        endpoint: "/{gameUrl}/Game/LaunchGame",
-        description: "Player click game from operator. It will call the Funky system, and the Funky system will call the corresponding game provider.",
+        endpoint: "https://{{api_domain}}/account/createplayer",
+        description: "This function is for registering a new player account in middleware system. Every player is binded to an agent. The hierarchy is => Agent -> Player. The new player's default TableLimit is following with player's agent settings.",
         parameter: [
-          {
-            name: "PATH PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "gameUrl",
-                type: "string",
-                required: true,
-                description: "Game Provider's URL.",
-                restriction: [],
-              }
-            ]
-          },
-          {
-            name: "HEADER PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "User-Agent",
-                type: "string",
-                required: true,
-                description: "Operator’s identifiable name.",
-                restriction: [],
-              },
-              {
-                name: "Authentication",
-                type: "string",
-                required: true,
-                description: "Authentication token.",
-                restriction: [],
-              },
-              {
-                name: "X-Request-ID",
-                type: "string",
-                required: true,
-                description: "Identifier for log tracing. Please use a mixed alphanumeric string in the form of a UUID, with a length of up to 64 characters.",
-                restriction: [],
-              },
-            ]
-          },
           {
             name: "REQUEST BODY SCHEMA",
             description: "application/json",
             params: [
               {
-                name: "currency",
+                name: "ApiKey",
                 type: "string",
                 required: true,
-                description: "User currency (if you want to use kcurrency please contact to FunkySupport).",
-                restriction: ["non-empty"],
-              },
-              {
-                name: "fpId",
-                type: "string",
-                required: true,
-                description: "Platform ID.",
-                restriction: ["non-empty"],
-              },
-              {
-                name: "gameCode",
-                type: "string",
-                required: true,
-                description: "The game (by code) to be launched.",
-                restriction: ["non-empty"],
-              },
-              {
-                name: "isTestAccount",
-                type: "string",
-                required: true,
-                description: "A flag indicates if the account is for testing or not.Default value set to false.",
-                restriction: ["non-empty"],
-              },
-              {
-                name: "language",
-                type: "string",
-                required: true,
-                description: "The language of the player. Will return English if the specified language code is not supported or recognized.",
-                restriction: ["non-empty"],
-              },
-              {
-                name: "playerId",
-                type: "string",
-                required: true,
-                description: "The unique ID of the player. At least 3 characters are required.",
-                restriction: ["non-empty"],
-              },
-              {
-                name: "playerIp",
-                type: "string",
-                required: true,
-                description: "Player’s IP at the moment. This is for preventing players from betting through VPN. (Please enter the correct country’s IP for real players due to regional restrictions, API testing is not subject to this requirement)",
-                restriction: ["non-empty"],
-              },
-              {
-                name: "sessionId",
-                type: "string",
-                required: true,
-                description: "User session from platform, the unique ID when the player launch game.",
-                restriction: ["non-empty"],
-              },
-              {
-                name: "userName",
-                type: "string",
-                required: true,
-                description: "The name that player prefers to show in game.",
-                restriction: ["non-empty"],
-              },
-              {
-                name: "masterId",
-                type: "integer",
-                required: true,
-                description: "Master ID.",
+                description: "The key pre-agreed between fund provider and middleware system.",
                 restriction: [],
+                schema : []
               },
+              {
+                name: "UserName",
+                type: "string",
+                required: true,
+                description: "Username cannot be longer than 15 chars. Only numeric and alphabet is allowed in username. Username must be unique among all users in fund provider",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "The Agentname pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              }
             ]
-          },
+          }
         ],
         responses: [
           {
@@ -599,44 +510,34 @@ export const apiData = [
                 description: "application/json",
                 params: [
                   {
-                    name: "errorCode",
+                    name: "error",
                     type: "integer",
                     required: false,
-                    description: "0,200",
+                    description: "0",
                     restriction: [],
+                    schema: []
                   },
                   {
-                    name: "errorMessage",
+                    name: "message",
                     type: "string",
                     required: false,
-                    description: "Error Code List.",
+                    description: "Success",
                     restriction: [],
+                    schema: []
                   },
                   {
                     name: "data",
-                    type: "object",
+                    type: "string",
                     required: false,
-                    description: "",
+                    description: "{{authentication_token}}",
                     restriction: [],
-                    schema: [
-                      {
-                        name: "gameUrl",
-                        type: "string",
-                        required: false,
-                        description: "The destination for operator to redirect player to the game.",
-                      },
-                      {
-                        name: "token",
-                        type: "string",
-                        required: false,
-                        description: "The token for player to enter the game.",
-                      },
-                    ]
-                  },
+                    schema: []
+                  }
                 ]
               }
             ]
-          }
+          },
+          
         ],
         sample: [
           {
@@ -669,138 +570,56 @@ export const apiData = [
                 }
               }
           },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            description: null,
+            json: {
+              error: [],
+              message: [],
+              data: []
+            }
+          }
         ]
       },
       {
-        title: "In Game",
-        id: "in_game",
-        type: ApiEnum.GET,
-        endpoint: "/gameUrlWithToken",
-        description: "Redirects the player to the game according to the URL within the response sent from the game provider.",
-        parameter: [
-          {
-            name: "PATH PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "gameUrlWithToken",
-                type: "string",
-                required: true,
-                description: "The destination for operator to redirect player to the game.",
-                restriction: [],
-              }
-            ]
-          },
-          {
-            name: "QUERY PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "token",
-                type: "string",
-                required: true,
-                description: "The token for player to enter the game.",
-                restriction: [],
-              },
-              {
-                name: "redirectUrl",
-                type: "string",
-                required: false,
-                description: "If your site need to redirect to a specified URL, the parameter redirectUrl is necessary for overwriting the original behavior of Home/Back button e.g. close window or go to the previous page. Calling without this parameter will keep the original behavior.",
-                restriction: [],
-              },
-            ]
-          },
-        ],
-        responses: [
-          {
-            code: 200,
-            message: "OK",
-            parameter: []
-          }
-        ],
-        sample: []
-      },
-    ]
-  },
-  {
-    title: "Function API",
-    id: "function_api",
-    api: [
-      {
-        title: "Get Player Balance",
-        id: "get_player_balance",
+        title: "Login",
+        id: "login",
         type: ApiEnum.POST,
-        endpoint: "/{funkyUrl}/Funky/User/GetBalance",
-        description: "This API is for game providers to query the best credit for players.",
+        endpoint: "https://{{api_domain}}/account/login",
+        description: "Login function is used to get a login token for player who logins to middleware system. The token is binded to this login session and it will be expired in 30 minutes. To obtain new token before it gets expired, consider using RefreshToken function or Login function again. Player is required to carry this token to visit our website for authentication.",
         parameter: [
-          {
-            name: "PATH PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "funkyUrl",
-                type: "string",
-                required: true,
-                description: "Funky System's URL",
-                restriction: [],
-              }
-            ]
-          },
-          {
-            name: "HEADER PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "User-Agent",
-                type: "string",
-                required: true,
-                description: "Operator’s identifiable name.",
-                restriction: [],
-              },
-              {
-                name: "Authentication",
-                type: "string",
-                required: true,
-                description: "Authentication token.",
-                restriction: [],
-              },
-              {
-                name: "X-Request-ID",
-                type: "string",
-                required: true,
-                description: "Identifier for log tracing. Please use a mixed alphanumeric string in the form of a UUID, with a length of up to 64 characters.",
-                restriction: [],
-              },
-            ]
-          },
           {
             name: "REQUEST BODY SCHEMA",
             description: "application/json",
             params: [
               {
-                name: "fpid",
-                type: "integer <int32>",
+                name: "ApiKey",
+                type: "string",
                 required: true,
-                description: "Platform ID.",
+                description: "The key pre-agreed between fund provider and middleware system.",
                 restriction: [],
+                schema: []
               },
               {
-                name: "playerId",
+                name: "UserName",
                 type: "string",
                 required: true,
-                description: "The unique ID of the player. At least 3 characters are required.",
-                restriction: ["non-empty"],
+                description: "Username cannot be longer than 15 chars. Only numeric and alphabet is allowed in username. Username must be unique among all users in fund provider",
+                restriction: [],
+                schema: []
               },
               {
-                name: "sessionId",
+                name: "AgentName",
                 type: "string",
                 required: true,
-                description: "User session from platform, the unique ID when the player launch game.",
-                restriction: ["non-empty"],
-              },
+                description: "The Agentname pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              }
             ]
-          },
+          }
         ],
         responses: [
           {
@@ -812,34 +631,378 @@ export const apiData = [
                 description: "application/json",
                 params: [
                   {
-                    name: "errorCode",
+                    name: "error",
                     type: "integer",
                     required: false,
-                    description: "0,401",
+                    description: "0",
                     restriction: [],
+                    schema: []
                   },
                   {
-                    name: "errorMessage",
+                    name: "message",
                     type: "string",
                     required: false,
-                    description: "Error Code List.",
+                    description: "Success",
                     restriction: [],
+                    schema: []
                   },
                   {
                     name: "data",
-                    type: "object",
+                    type: "string",
+                    required: false,
+                    description: "{{authentication_token}}",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
                     required: false,
                     description: "",
                     restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            description: null,
+            json: {
+              error: [],
+              message: [],
+              data: []
+            }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            description: null,
+            json: {
+              error: [],
+              message: [],
+              data: []
+            }
+          }
+        ]
+      },
+      {
+        title: "RefreshToken",
+        id: "refreshtoken",
+        type: ApiEnum.POST,
+        endpoint: "https://{{api_domain}}/account/refreshtoken",
+        description: "This function is used to get a new token for players who have already got authentication token earlier. This function will invalidate the old token as well.",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "UserName",
+                type: "string",
+                required: true,
+                description: "Username of the player",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+        {
+          code: 200,
+          message: "OK",
+          parameter: [
+            {
+                  name: "RESPONSE SCHEMA",
+                  description: "application/json",
+                  params: [
+                    {
+                      name: "error",
+                      type: "integer",
+                      required: false,
+                      description: "0",
+                      restriction: [],
+                      schema: []
+                    },
+                    {
+                      name: "message",
+                      type: "string",
+                      required: false,
+                      description: "Success",
+                      restriction: [],
+                      schema: []
+                    },
+                    {
+                      name: "data",
+                      type: "string",
+                      required: false,
+                      description: "{",
+                      restriction: [],
+                      schema: [
+                        {
+                          name: "UserId",
+                          type: "integer",
+                          required: false,
+                          description: "123"
+                        },
+                        {
+                          name: "UserName",
+                          type: "string",
+                          required: false,
+                          description: "username"
+                        },
+                        {
+                          name: "DisplayName",
+                          type: "string",
+                          required: false,
+                          description: "name"
+                        },
+                        {
+                          name: "Balance",
+                          type: "number",
+                          required: false,
+                          description: "10.00"
+                        },
+                        {
+                          name: "VipPoint",
+                          type: "integer",
+                          required: false,
+                          description: "10"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+            
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            description: null,
+            json: {
+              error: [],
+              message: [],
+              data: [
+                []
+              ]
+            }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            description: null,
+            json: {
+              error: [],
+              message: [],
+              data: []
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    title: "Player",
+    id: "player",
+    api: [
+      {
+        title: "Profile",
+        id: "profile",
+        type: ApiEnum.POST,
+        endpoint: "https://{{api_domain}}/player/profile",
+        description: "This function returns the profile information of a player. ",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "UserName",
+                type: "string",
+                required: true,
+                description: "Username of the player",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter:  [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "Success",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "{",
+                    restriction: [],
                     schema: [
                       {
-                        name: "balance",
-                        type: "number <double>",
+                        name: "UserId",
+                        type: "integer",
                         required: false,
-                        description: "Player’s balance.",
+                        description: "123"
                       },
+                      {
+                        name: "UserName",
+                        type: "string",
+                        required: false,
+                        description: "username"
+                      },
+                      {
+                        name: "DisplayName",
+                        type: "string",
+                        required: false,
+                        description: "name"
+                      },
+                      {
+                        name: "Balance",
+                        type: "number",
+                        required: false,
+                        description: "10.00"
+                      },
+                      {
+                        name: "VipPoint",
+                        type: "integer",
+                        required: false,
+                        description: "10"
+                      }
                     ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
                   },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
                 ]
               }
             ]
@@ -3402,4 +3565,76 @@ export const apiData = [
       },
     ]
   },
+]
+
+export const erorcodes = [
+    {error: "0",	description: (["Function executed successfully"])},
+    {error: "1",	description:  ["Some error happened. Refer to the `message` field to get more information."]}
+  ]
+
+export const providergametype = [
+
+  {providerid: "2",	providername:  ["SBO",], gametypes: "SportsBook, Casino, VirtualSports, Games"},
+  {providerid: "3",	providername:  ["AG",], gametypes: "AGIN, EGames (Where AGIN is Casino and EGames is Slot)"},
+  {providerid: "4",	providername:  ["Pragmatic Play",], gametypes: "Slot"},
+  {providerid: "5",	providername:  ["IMOne",], gametypes: "IMSlot and IMLiveDealer (Corresponding to Slot and Casino)"},
+  {providerid: "6",	providername:  ["AWC",], gametypes: "SexyBaccarat"},
+  {providerid: "8",	providername:  ["MM",], gametypes: "Slot"},
+  {providerid: "10",	providername:  ["Red Tiger",], gametypes: "Slot"},
+  {providerid: "11",	providername:  ["PGSoft",], gametypes: "Slot"},
+  {providerid: "12",	providername:  ["Pragmatic Play Live",], gametypes: "Casino"},
+  {providerid: "13",	providername:  ["WM Live",], gametypes: "Casino"},
+  {providerid: "14",	providername:  ["Spade Gaming",], gametypes: "Slot, Fishing"},
+  {providerid: "15",	providername:  ["Gamatron",], gametypes: "Slot, Fishing"},
+  {providerid: "16",	providername:  ["EvoPlay",], gametypes: "Slot, Table"},
+]
+
+export const language = [
+  {value: "en-us",	description: (["English"])},
+  {value: "zh-tw",	description: (["Traditional Chinese"])},
+  {value: "zh-cn",	description: (["Simplified Chinese"])},
+  {value: "th-th",	description: (["Thai"])},
+]
+
+export const timezone = [
+  {
+    json : {
+      "-12:00": "GMT −12",
+      "-11:00": "GMT −11",
+      "-10:00": "GMT −10",
+      "-9:30": "GMT -9:30",
+      "-9:00": "GMT -9",
+      "-8:00": "GMT -8",
+      "-7:00": "GMT -7",
+      "-6:00": "GMT -6",
+      "-5:00": "GMT -5",
+      "-4:00": "GMT -4",
+      "-3:30": "GMT -3:30",
+      "-3:00": "GMT -3",
+      "-2:00": "GMT -2",
+      "-1:00": "GMT -1",
+      "00:00": "GMT +0",
+      "01:00": "GMT +1",
+      "02:00": "GMT +2",
+      "03:00": "GMT +3",
+      "03:30": "GMT +3:30",
+      "04:00": "GMT +4",
+      "04:30": "GMT +4:30",
+      "05:00": "GMT +5",
+      "05:30": "GMT +5:30",
+      "06:00": "GMT +6",
+      "06:30": "GMT +6:30",
+      "07:00": "GMT +7",
+      "08:00": "GMT +8",
+      "08:30": "GMT +8:30",
+      "09:00": "GMT +9",
+      "09:30": "GMT +9:30",
+      "10:00": "GMT +10",
+      "10:30": "GMT +10:30",
+      "11:00": "GMT +11",
+      "12:00": "GMT +12",
+      "12:30": "GMT +12:30",
+      "13:00": "GMT +13",
+      "14:00": "GMT +14"
+  }}
 ]
