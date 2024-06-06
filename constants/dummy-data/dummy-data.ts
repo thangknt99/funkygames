@@ -115,7 +115,7 @@ export const data = [
       },
       {
         name: "GetGameName (optional)",
-        id: "getgamename",
+        id: "getgamename_(optional)",
         type: ApiEnum.POST,
       },
       {
@@ -258,7 +258,7 @@ export const data = [
       {
         name: "Error codes reference",
         id: "error_codes_reference",
-        type: ApiEnum.POST,
+        type: ApiEnum.NONE,
       },
       {
         name: "Provider and game types",
@@ -778,7 +778,7 @@ export const apiData = [
                       name: "data",
                       type: "string",
                       required: false,
-                      description: "{",
+                      description: "",
                       restriction: [],
                       schema: [
                         {
@@ -938,7 +938,7 @@ export const apiData = [
                     name: "data",
                     type: "string",
                     required: false,
-                    description: "{",
+                    description: "",
                     restriction: [],
                     schema: [
                       {
@@ -1102,7 +1102,7 @@ export const apiData = [
                     name: "data",
                     type: "string",
                     required: false,
-                    description: "{",
+                    description: "",
                     restriction: [],
                     schema: [
                       {
@@ -1254,7 +1254,7 @@ export const apiData = [
                     name: "data",
                     type: "string",
                     required: false,
-                    description: "{",
+                    description: "",
                     restriction: [],
                     schema: [
                       {
@@ -1959,7 +1959,7 @@ export const apiData = [
                     name: "data",
                     type: "string",
                     required: false,
-                    description: "[",
+                    description: "",
                     restriction: [],
                     schema: []
                   }
@@ -2049,100 +2049,1534 @@ export const apiData = [
         description: "Get the transaction list of the specified player in the specified date range.",
         parameter: [
           {
-            name: "PATH PARAMETERS",
-            description: "",
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
             params: [
               {
-                name: "gameUrl",
+                name: "FromDate",
                 type: "string",
                 required: true,
-                description: "Game Provider's URL.",
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”.",
                 restriction: [],
+                schema: []
+              },
+              {
+                name: "ToDate",
+                type: "string",
+                required: true,
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageIndex",
+                type: "integer",
+                required: true,
+                description: "This integer denotes the page index that you want to get bet list. Starting with 1.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageSize",
+                type: "integer",
+                required: false,
+                description: "This value will limit the result of the response. It is optional. If not present, default value for PageSize is 100.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Type",
+                type: "string",
+                required: true,
+                description: "The type of transactions you want to get. It can take these values: “deposit”, “withdraw” and “all” to get respective result.",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: [
+                      {
+                        name: "Count",
+                        type: "integer",
+                        required: false,
+                        description: "250"
+                      },
+                      {
+                        name: "Entities",
+                        type: "string",
+                        required: false,
+                        description: ""
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
           {
-            name: "HEADER PARAMETERS",
-            description: "",
-            params: [
+            code: 500,
+            message: "InternalServer",
+            parameter: [
               {
-                name: "User-Agent",
-                type: "string",
-                required: true,
-                description: "Operator’s identifiable name.",
-                restriction: [],
-              },
-              {
-                name: "Authentication",
-                type: "string",
-                required: true,
-                description: "Authentication token.",
-                restriction: [],
-              },
-              {
-                name: "X-Request-ID",
-                type: "string",
-                required: true,
-                description: "Identifier for log tracing. Please use a mixed alphanumeric string in the form of a UUID, with a length of up to 64 characters.",
-                restriction: [],
-              },
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
             ]
+          }
+                
+        ],
+        sample: [
+          {
+            name: "Request samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "FromDate":"2019-08-01 00:00:00",
+              "ToDate":"2019-08-30 00:00:00",
+              "PageIndex": 1,
+              "PageSize": 10,
+              "Type": "deposit"
+            }
           },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "data": {
+              "Count": 250,
+              "Entities":[
+                    {
+                      "Id": 81,
+                  "Type": "Withdraw",
+                      "CreateDate": "2019-08-14T08:23:19Z",
+                      "StartAmount": 1000.00, // The balance before the withdrawal
+                      "AmountChange": 100.00, // The amount to be withdrawn
+                      "EndAmount": 900.00, // The balance after the withdrawal
+                      "TransGuid": "5235235"
+                    },
+                    {
+                      "Id": 80,
+                      "Type": "Deposit",
+                      "CreateDate": "2019-08-14T08:19:33Z",
+                      "StartAmount": 0.00, // The balance before the deposit
+                      "AmountChange": 1000.00, // The amount to be deposited
+                      "EndAmount": 1000.00, // The balance after the deposit
+                      "TransGuid": "5252523"
+                    }
+                ]
+                }
+            }
+          },
+          {
+            name: "Request samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+            }
+          },
+        ]
+      },
+      {
+        title: "BetList",
+        id: "betlist",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/betlist",
+        description: "Get the list of bets that the specified player made in the specified date range.",
+        parameter: [
           {
             name: "REQUEST BODY SCHEMA",
             description: "application/json",
             params: [
               {
-                name: "fpid",
-                type: "integer <int32>",
-                required: true,
-                description: "Platform ID.",
-                restriction: [],
-              },
-              {
-                name: "gameCode",
+                name: "FromDate",
                 type: "string",
                 required: true,
-                description: "The game (by code) to be launched.",
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”.",
                 restriction: [],
+                schema: []
               },
               {
-                name: "lang",
+                name: "ToDate",
                 type: "string",
                 required: true,
-                description: "The language of the player. Will return English if the specified language code is not supported or recognized.",
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”",
                 restriction: [],
+                schema: []
               },
               {
-                name: "playerId",
+                name: "PageIndex",
+                type: "integer",
+                required: true,
+                description: "This integer denotes the page index that you want to get bet list. Starting with 1.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageSize",
+                type: "integer",
+                required: false,
+                description: "This value will limit the result of the response. It is optional. If not present, default value for PageSize is 100.",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "FromDate":"2019-08-01 00:00:00",
+              "ToDate":"2019-08-30 00:00:00",
+              "PageIndex": 1,
+              "PageSize": 10
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "data": [
+                  {
+                      "UserName": "username",
+                      "TransGuid": "11111111",
+                      "ActualStake": 19.60,
+                      "WinLost": 39.60,
+                      "Profit": 20.00,
+                      "StartAmount": 664.50,
+                      "BetDate": "2019-08-13T16:44:17Z",
+                      "GameType": "SportsBook",
+                      "GameId": null,
+                      "ProductType": null,
+                      "TableName": null,
+                      "Status": "Settled",
+                      "ProviderStatus": "won",
+                      "ProviderId": 2,
+                      "Provider": "SBO"
+                  }
+              ]
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "BetListBy",
+        id: "betlistby",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/betlistby",
+        description: "Like the BetList function, but this function limits the result to the specified provider only. The result will be sorted by the settled time.",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "FromDate",
                 type: "string",
                 required: true,
-                description: "The unique ID of the player. At least 3 characters are required.",
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”.",
                 restriction: [],
+                schema: []
               },
               {
-                name: "refNo",
+                name: "ToDate",
                 type: "string",
                 required: true,
-                description: "The reference number of the bet which is always unique.",
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”",
                 restriction: [],
+                schema: []
               },
               {
-                name: "sourceIp",
+                name: "ProviderId",
+                type: "integer",
+                required: true,
+                description: "The provider-id. So, the result will be limited to this provider only.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageIndex",
+                type: "integer",
+                required: true,
+                description: "This integer denotes the page index that you want to get bet list. Starting with 1.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageSize",
+                type: "integer",
+                required: false,
+                description: "This value will limit the result of the response. It is optional. If not present, default value for PageSize is 100.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TimeSpecific",
+                type: "boolean",
+                required: false,
+                description: "By default, this field will have the value `false`. When this field is `true`, we will consider limiting the result to the specific time in `FromDate` and `ToDate`",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "FromDate":"2019-08-01 00:00:00",
+              "ToDate":"2019-08-30 00:00:00",
+              "ProviderId": 3,
+              "PageIndex": 1,
+              "PageSize": 10,
+              "TimeSpecific": true
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "data": [
+                  {
+                      "UserName": "username",
+                      "TransGuid": "11111111",
+                      "ActualStake": 19.60,
+                      "WinLost": 39.60,
+                      "Profit": 20.00,
+                      "StartAmount": 664.50,
+                      "BetDate": "2019-08-13T16:44:17.000Z",
+                      "GameType": "Slot",
+                      "GameId": null,
+                      "ProductType": null,
+                      "TableName": null,
+                      "Status": "Settled",
+                      "ProviderStatus": "won",
+                      "ProviderId": 3,
+                      "Provider": "AG"
+                  }
+              ]
+            }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "BetListOfAgent",
+        id: "betlistofagent",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/betlistofagent",
+        description: "Get list of bets of all players of this agent depends on the input.",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ApiKey",
                 type: "string",
                 required: true,
-                description: "The request ip",
+                description: "The key pre-agreed between fund provider and middleware system.",
                 restriction: [],
+                schema: []
               },
               {
-                name: "location",
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "The Agentname pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "FromDate",
+                type: "string",
+                required: true,
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ToDate",
+                type: "string",
+                required: true,
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "integer",
+                required: true,
+                description: "The provider-id. So, the result will be limited to this provider only. If you set ProviderId = 0 here, it means you will get data of all providers.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "pageIndex",
+                type: "integer",
+                required: true,
+                description: "This integer denotes the page index that you want to get bet list. Starting with 1.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageSize",
+                type: "integer",
+                required: false,
+                description: "This value will limit the result of the response. It is optional. If not present, default value for PageSize is 100.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TimeSpecific",
+                type: "boolean",
+                required: false,
+                description: "By default, this field will have the value `false`. When this field is `true`, we will consider limiting the result to the specific time in `FromDate` and `ToDate`",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: [
+                      {
+                        name: "Count",
+                        type: "string",
+                        required: false,
+                        description: "250 // Total of records that satisfied the request you can use"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ApiKey":"{{api_key}}",
+              "AgentName":"{{agent_name}}",
+              "FromDate":"2019-08-01 00:00:00",
+              "ToDate":"2019-08-30 00:00:00",
+              "PageIndex": 1,
+              "PageSize": 20,
+              "ProviderId": 2,
+              "TimeSpecific": true
+            
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "data": {
+            "Count": 250, // Total of records that satisfied the request, you can use
+                // this figure to count total page
+            "Entities": [
+                {
+                          "UserName": "username",
+                          "TransGuid": "B00179411774",
+                          "Stake": 10.00,
+                          "ActualStake": 10.00,
+                          "WinLost": 0.00,
+                          "Profit": -10.00,
+                          "StartAmount": 10062.84,
+                          "WinLoseDate": "2019-09-19T10:54:50.337",
+                          "BetDate":"2019-09-19T10:54:51.237",
+                          "GameType": "Casino",
+                          "GameName": "Name",
+                          "GameId": "55555",
+                          "ProductType": "type",
+                          "TableName": "table name",
+                          "Status": "Settled",
+                          "ProviderStatus": "Lose",
+                          "ProviderId": 2,
+                          "Provider": "SBO_BetFun"
+                      }
+            ]
+              }
+          }
+          
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "GetGameName (optional)",
+        id: "getgamename_(optional)",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/getgamename",
+        description: "",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ProviderId",
+                type: "integer",
+                required: true,
+                description: "The ProviderId ",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Code",
+                type: "string",
+                required: true,
+                description: "Code of the game.",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "Dragon Kingdom",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ProviderId": 4,
+              "Code": "vs25dragonkingdom"
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "data": "Dragon Kingdom"
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "Get Transaction by RefNo",
+        id: "get_transaction_by_refno",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/ TransactionByRefNo",
+        description: "",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "The Agentname pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "RefNo",
+                type: "string",
+                required: true,
+                description: "Received from deposit/withdrawal transfer.",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: []
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: " Agent Name is not found",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "RefNo": "7ud6tjn1x643c1hy",
+              "AgentName": "AGN",
+              "ApiKey": "aaaappppiiiikkkkeeeeyyyy"
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "Id": 1908,
+              "Type": "Withdraw",
+              "CreateDate": "2020-03-11T16:32:19.000Z",
+              "StartAmount": 4000.00,
+              "AmountChange": 1.00,
+              "EndAmount": 3999.00,
+              "TransGuid": "7ud6tjn1x643c1hy",
+              "AgentName": "AGN",
+              "UserName": "usrname",
+              "Note": "usrname transfer to AGN"
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": " Agent Name is not found",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "Get Transaction of Agent",
+        id: "get_transaction_of_agent",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/ TransactionOfAgent",
+        description: "",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "The agent name we provided",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "ApiKey of the agent",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ToDate",
+                type: "string",
+                required: true,
+                description: "The `ToDate` in string format “yyyy-MM-dd hh:mm:ss” (will be considered as in GMT+0)",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "FromDate",
+                type: "string",
+                required: true,
+                description: "The `FromDate` in string format “yyyy-MM-dd hh:mm:ss” (will be considered as in GMT+0)",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageIndex",
+                type: "integer",
+                required: true,
+                description: "Default is 1",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageSize",
+                type: "integer",
+                required: true,
+                description: "Default is 50",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Type",
+                type: "string",
+                required: true,
+                description: "Either “Deposit” or “Withdraw”. Leave it as blank to retrieve both Deposit and Withdraw requests.",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: [
+                      {
+                        name: "Count",
+                        type: "integer",
+                        required: false,
+                        description: "25"
+                      },
+                      {
+                        name: "Entities",
+                        type: "string",
+                        required: false,
+                        description: ""
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: " Agent Name is not found",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "AgentName": "AGN",
+              "ApiKey": "aaaappppiiiikkkkeeeeyyyy",
+              "ToDate":"2020-04-01 00:00:00",
+              "FromDate":"2019-08-30 00:00:00",
+              "PageIndex": 1,
+              "PageSize": 100,
+              "Type": "deposit"
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "data": {
+                  "Count": 25,
+                  "Entities": [
+                      {
+                          "Id": 1906,
+                          "Type": "Deposit",
+                          "CreateDate": "2020-03-11T16:29:44.000Z",
+                          "StartAmount": 5000.00,
+                          "AmountChange": 1050.00,
+                          "EndAmount": 6050.00,
+                          "TransGuid": "xbe0jssz4av5iddo",
+                          "AgentName": "AGN",
+                          "UserName": "xxx",
+                          "Note": null
+                      },
+                      {
+                          "Id": 1905,
+                          "Type": "Deposit",
+                          "CreateDate": "2020-03-11T16:28:50.000Z",
+                          "StartAmount": 4498.00,
+                          "AmountChange": 502.00,
+                          "EndAmount": 5000.00,
+                          "TransGuid": "qv18zaizhdm8xoza",
+                          "AgentName": "AGN",
+                          "UserName": "xxxx",
+                          "Note": null
+                      }
+                  ]
+              }
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": " Agent Name is not found",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "BetListPaginated",
+        id: "betlistpaginated",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/BetListPaginated",
+        description: "Like the BetListBy function but add more field in the response: `Count`. This will let client paginate data.",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "FromDate",
+                type: "string",
+                required: true,
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ToDate",
+                type: "string",
+                required: true,
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "integer",
+                required: true,
+                description: "The provider-id. So, the result will be limited to this provider only.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageIndex",
+                type: "integer",
+                required: true,
+                description: "This integer denotes the page index that you want to get bet list. Starting with 1.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageSize",
+                type: "integer",
+                required: false,
+                description: "This value will limit the result of the response. It is optional. If not present, default value for PageSize is 100.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TimeSpecific",
+                type: "boolean",
+                required: false,
+                description: "By default, this field will have the value `false`. When this field is `true`, we will consider to limit the result to the specific time in `FromDate` and `ToDate`",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: [
+                      {
+                        name: "Count",
+                        type: "integer",
+                        required: false,
+                        description: "941"
+                      },
+                      {
+                        name: "Entities",
+                        type: "string",
+                        required: false,
+                        description: ""
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "FromDate":"2019-08-01 00:00:00",
+              "ToDate":"2019-08-30 00:00:00",
+              "ProviderId": 3,
+              "PageIndex": 1,
+              "PageSize": 10,
+              "TimeSpecific": true
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+    "message": "",
+    "data": {
+        "Count": 941,
+        "Entities": [
+            {
+                "UserName": "parker",
+                "TransGuid": "20200522090740961110660",
+                "ActualStake": 4.00,
+                "WinLost": 24.00,
+                "Profit": 20.00,
+                "StartAmount": 9668.00,
+                "WinLoseDate": "2020-05-22T01:06:37.780Z",
+                "BetDate": "2020-05-22T01:06:37.780Z",
+                "GameType": "S-MM01",
+                "GameId": "20200522090740628110659",
+                "ProductType": "Slot",
+                "TableName": "Web",
+                "Status": "Settled",
+                "ProviderStatus": "Payout",
+                "ProviderId": 14,
+                "Provider": "Prv",
+                "Result": null,
+                "PlayTypeName": null
+            },
+            {
+                "UserName": "parker",
+                "TransGuid": "20200522090737678110658",
+                "ActualStake": 4.00,
+                "WinLost": 0.00,
+                "Profit": -4.00,
+                "StartAmount": 9672.00,
+                "WinLoseDate": "2020-05-22T01:06:34.493Z",
+                "BetDate": "2020-05-22T01:06:34.493Z",
+                "GameType": "S-MM01",
+                "GameId": "20200522090737346110657",
+                "ProductType": "Slot",
+                "TableName": "Web",
+                "Status": "Settled",
+                "ProviderStatus": "Payout",
+                "ProviderId": 14,
+                "Provider": "Prv",
+                "Result": null,
+                "PlayTypeName": null
+            }
+        ]
+    }
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "GetOutStandingBets",
+        id: "getoutstandingbets",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/GetOutStandingBets",
+        description: "",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "The Agentname pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "UserName",
                 type: "string",
                 required: false,
-                description: "The “ISO 3166 country codes” alpha-2 of request. Reference : https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes",
+                description: "Get outstanding bets for user by username, if not will get outstanding bets for all agent users",
                 restriction: [],
-              },
+                schema: []
+              }
             ]
-          },
+          }
         ],
         responses: [
           {
@@ -2154,34 +3588,65 @@ export const apiData = [
                 description: "application/json",
                 params: [
                   {
-                    name: "errorCode",
+                    name: "error",
                     type: "integer",
                     required: false,
-                    description: "0,404",
+                    description: "0",
                     restriction: [],
+                    schema: []
                   },
                   {
-                    name: "errorMessage",
+                    name: "message",
                     type: "string",
-                    required: false,
-                    description: "Error Code List.",
-                    restriction: [],
-                  },
-                  {
-                    name: "data",
-                    type: "object",
                     required: false,
                     description: "",
                     restriction: [],
-                    schema: [
-                      {
-                        name: "url",
-                        type: "string",
-                        required: false,
-                        description: "Url",
-                      },
-                    ]
+                    schema: []
                   },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "[]",
+                    restriction: [],
+                    schema: []
+                  }
                 ]
               }
             ]
@@ -2189,53 +3654,1463 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Request samples",
+            name: "Response samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
-              "gameCode": "string",
-              "refNo": "string",
-              "playerId": "string",
-              "lang": "string",
-              "fpId": 0,
-              "sourceIp": "string",
-              "location": "string"
-            }
+              "AgentName" : "{{agent_name}}",
+              "ApiKey" : "{{api_key}}",
+              "UserName" : "UserName1"
+              }
           },
           {
             name: "Response samples",
             payload: "200",
             contentType: "application/json",
             json: {
-              "errorMessage": "string",
-              "errorCode": 0,
-              "data": {
-                "url": "string"
-              }
+              "error": 0,
+              "message": "",
+              "data": [
+                  {
+                      "subBet": [
+                          {
+                              "transId": 4011031,
+                              "betOption": "Melbourne Victory (n)",
+                              "marketType": "Handicap",
+                              "hdp": -0.5,
+                              "odds": -0.98,
+                              "league": "Australia Hyundai A League",
+                              "match": "Melbourne Victory (n) vs Central Coast Mariners",
+                              "status": "running",
+                              "winlostDate": "2020-08-03T00:00:00.000Z",
+                              "liveScore": "0:0",
+                              "htScore": "0:0",
+                              "ftScore": "0:0",
+                              "customeizedBetType": "",
+                              "isHalfWonLose": false,
+                              "isLive": false,
+                              "kickOffTime": "2020-08-03T05:30:00"
+                          }
+                      ],
+                      "refNo": "4011031",
+                      "username": "011BOBLOG90",
+                      "sportType": "Football",
+                      "orderTime": "2020-08-03T02:09:34.590Z",
+                      "winlostDate": "2020-08-03T00:00:000Z",
+                      "modifyDate": "2020-08-03T02:09:34.590Z",
+                      "odds": -0.98,
+                      "oddsStyle": "M",
+                      "stake": 12.0,
+                      "actualStake": 11.76,
+                      "currency": "MYR",
+                      "status": "running",
+                      "winlose": 0.0,
+                      "turnover": 12.0,
+                      "isHalfWonLose": false,
+                      "isLive": false,
+                      "MaxWinWithoutActualStake": 12.0,
+                      "Ip": "42.191.235.171"
+                    }
+              ]
             }
           },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": []
+              }
+          }
+        ]
+      }, 
+      {
+        title: "Get Sum of Balance of all players",
+        id: "get_sum_of_balance_of_all_players",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/sum-player-balance",
+        description: "",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "Agent name that we provided you",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "APIKey",
+                type: "string",
+                required: true,
+                description: "APIKey that we provided you",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "AgentName": "agname",
+    	        "APIKey": "---"
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "data": [
+                  {
+                      "AgentName": "<agentname>",
+                      "SumBalance": 12322.29
+                  }
+              ]
+            }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
         ]
       },
       {
-        title: "Bet Detail",
-        id: "bet_detail_api",
+        title: "BetListDetailsV3",
+        id: "betlistdetailsv3",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/BetListDetailsV3",
+        description: "Like the BetListDetails (3.13) function but the input is different. This version will require Agent Name, API Key and Playername, instead of Authorization token.",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "FromDate",
+                type: "string",
+                required: true,
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ToDate",
+                type: "string",
+                required: true,
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "Agent name that we provided you",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "APIKey",
+                type: "string",
+                required: true,
+                description: "APIKey that we provided you",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PlayerName",
+                type: "string",
+                required: true,
+                description: "Player username",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "integer",
+                required: true,
+                description: "The provider-id. So, the result will be limited to this provider only.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageIndex",
+                type: "integer",
+                required: true,
+                description: "This integer denotes the page index that you want to get bet list. Starting with 1.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageSize",
+                type: "integer",
+                required: false,
+                description: "This value will limit the result of the response. It is optional. If not present, default value for PageSize is 100.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TimeSpecific",
+                type: "boolean",
+                required: false,
+                description: "By default, this field will have the value `false`. When this field is `true`, we will consider to limit the result to the specific time in `FromDate` and `ToDate`",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: [
+                      {
+                        name: "Count",
+                        type: "integer",
+                        required: false,
+                        description: "1"
+                      },
+                      {
+                        name: "Entities",
+                        type: "string",
+                        required: false,
+                        description: ""
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "AgentName": "agname",
+              "PlayerName": "test01",
+              "APIKey": "-----",
+              "FromDate":"2020-05-22 01:06:00",
+              "ToDate":"2020-07-22 01:07:00",
+              "PageIndex": 1,
+              "PageSize": 20,
+              "ProviderId": 2,
+              "TimeSpecific": false
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "data": {
+                  "Count": 1,
+                  "Entities": [
+                      {
+                    "Ip": "192.168.1.1",
+                    "TurnOver": 98.00,
+                          "UserName": "ccaskdksport",
+                          "TransGuid": "3998214",
+                          "ActualStake": 98.00,
+                          "WinLost": 49.00,
+                          "Profit": -49.00,
+                          "StartAmount": 100004.77,
+                          "WinLoseDate": "2020-07-07T04:00:00.000Z",
+                          "BetDate": "2020-07-07T10:53:39.430Z",
+                          "GameType": "SportsBook",
+                          "GameId": null,
+                          "ProductType": "Football",
+                          "TableName": null,
+                          "Status": "Settled",
+                          "ProviderStatus": "lose",
+                          "ProviderId": 2,
+                          "Provider": "SBO_BetFun",
+                          "Result": null,
+                          "PlayTypeName": null,
+                          "SubBets": "[    {      \"transId\": 3998214,      \"betOption\": \"Chelsea\",      \"marketType\": \"Handicap\",      \"hdp\": -1.25,      \"odds\": -0.98,      \"league\": \"ENGLISH PREMIER LEAGUE\",      \"match\": \"Crystal Palace vs Chelsea\",      \"status\": \"lose\",      \"winlostDate\": \"2020-07-07T00:00:00\",      \"liveScore\": \"0:0\",      \"htScore\": \"1:2\",      \"ftScore\": \"2:3\",      \"customeizedBetType\": \"\",      \"isHalfWonLose\": false,      \"isLive\": false,      \"kickOffTime\": \"2020-07-07T13:00:00\"    }  ]"
+                      }
+                  ]
+              }
+            }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "GetGameHistoryUrl",
+        id: "getgamehistoryurl",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/get-game-history-url",
+        description: "",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "TransGuid",
+                type: "string",
+                required: true,
+                description: "Transguid of bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "integer",
+                required: true,
+                description: "The provider-id",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Language",
+                type: "string",
+                required: false,
+                description: "Language: EN-US, TH-TH, ZN-CN",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "http",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "TransGuid": "transguId",
+              "ProviderId": 6,
+              "Language": "EN-US" 
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "data": "http://...."
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "WinloseSummarize",
+        id: "winlosesummarize",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/ WinloseSummarize/GetAll",
+        description: "",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "The Agentname pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "UserName",
+                type: "string",
+                required: false,
+                description: "Username cannot be longer than 15 chars. Only numeric and alphabet is allowed in username. Username must be unique among all users in fund provider",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "FromDate",
+                type: "string",
+                required: true,
+                description: "The `Fromdate` in string format “yyyy-MM-dd”",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ToDate",
+                type: "string",
+                required: true,
+                description: "The `Todate` in string format “yyyy-MM-dd”",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "FromTimeId",
+                type: "long",
+                required: false,
+                description: "Default 0. ",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "OK",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: [
+                      {
+                        name: "TotalCount",
+                        type: "integer",
+                        required: false,
+                        description: "1"
+                      },
+                      {
+                        name: "Items",
+                        type: "string",
+                        required: false,
+                        description: ""
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ApiKey":"{{api_key}}",
+              "AgentName":"{{agent_name}}",
+              "FromDate": "2021-04-04",
+              "ToDate": "2021-04-06",
+              "FromTimeId": 3,
+              "ToTimeId": 3, 
+              "Username": "",
+              "TimeZone": "00:00"
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "OK",
+              "data": {
+                "TotalCount": 1,
+                "Items": [
+                  {
+                    "ProviderId": 8,
+                    "GameType": "MiniGame",
+                    "Username": "Playername",
+                    "BetCount": 476,
+                    "Stake": 875700,
+                    "ActualStake": 739700,
+                    "Winlose": 838504,
+                    "Turnover": 739700,
+                    "Profit": 37196,
+                    "AgentPush": 2231.76
+                  }
+                ]
+              }
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              }
+          }
+        ]
+      },
+      {
+        title: "BettingHistory",
+        id: "bettinghistory",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/Data/BettingHistory",
+        description: "",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "The Agentname pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Username",
+                type: "string",
+                required: false,
+                description: "Username cannot be longer than 15 chars. Only numeric and alphabet is allowed in username. Username must be unique among all users in fund provider",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "FromDate",
+                type: "string",
+                required: true,
+                description: "The `FromDate` in string format “yyyy-MM-dd”",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ToDate",
+                type: "string",
+                required: true,
+                description: "The `ToDate` in string format “yyyy-MM-dd”",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "integer",
+                required: false,
+                description: "Provider id we provided.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameType",
+                type: "string",
+                required: false,
+                description: "Game type we provided.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameId",
+                type: "string",
+                required: false,
+                description: "GameId/RoundId",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TransGuid",
+                type: "string",
+                required: false,
+                description: "Unique TransGuid/RefNo in system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageIndex",
+                type: "integer",
+                required: true,
+                description: "This integer denotes the page index that you want to get bet list. Starting with 1.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageSize",
+                type: "integer",
+                required: false,
+                description: "This value will limit the result of the response. It is optional. If not present, default value for pageSize is 100.",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: []
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+                "ApiKey":"{{api_key}}",
+                "AgentName":"{{agent_name}}",
+                "FromDate": "2021-01-20",
+                "ToDate": "2021-06-14",
+                "Username":"",
+                "ProviderId": -1,
+                "GameType": "",
+                "GameId": "",
+                "TransGuid": "",
+                "PageIndex": 1,
+                "PageSize": 20
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "OK",
+              "data": {
+                  "TotalCount": 15,
+                  "Items": [
+                      {
+                          "Playername": "PlayerName",
+                          "TransGuid": "ab33a1a5-48bc-464f-6a3d-08d92a392ff2",
+                          "CreatedDate": "2021-06-14T22:02:21.000Z",
+                          "WinloseDate": "2021-06-14T21:58:14.23.000Z",
+                          "GameType": "Slot",
+                          "GameId": "e530a1aa-b11d-443d-6a3b-08d92a392ff2",
+                          "TableName": "Mega_Rise",
+                          "ProductType": "Mega_Rise",
+                          "SubBets": "{\"externalbetid\":\"956445737\",\"externalgameid\":\"MegaRise\",\"externalroundid\":\"956445737\",\"platformtype\":0,\"isclosinground\":true}",
+                          "Odds": 0.0,
+                          "OddsStyle": null,
+                          "Currency": "THB",
+                          "Stake": 10.00,
+                          "ActualStake": 10.00,
+                          "Profit": -10.00,
+                          "Turnover": 10.00,
+                          "Winloss": 0.00,
+                          "StartAmount": 0.00,
+                          "EndAmount": 0.00,
+                          "Ip": "94.237.78.228",
+                          "Status": "Settled",
+                          "ProviderStatus": "Lose",
+                          "ProviderId": 10,
+                          "ProviderName": "RT Slot",
+                          "IsHalfWonLose": null,
+                          "GameName": "Mega Rise",
+                          "BetChoice": ""
+                      }
+                  ]
+              }
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              }
+          }
+        ]
+      },
+      {
+        title: "WinloseV2",
+        id: "winlosev2",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/winloseV2",
+        description: "Get list of winlose summary data of a player but limited in specified date range and provider. ",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "FromDate",
+                type: "string",
+                required: true,
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ToDate",
+                type: "string",
+                required: true,
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "integer",
+                required: true,
+                description: "The provider-id. Set = -1 to get all data",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameType",
+                type: "string",
+                required: false,
+                description: "GameType. Set = “” to get all gametype",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "OK",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: [
+                      {
+                        name: "GameType",
+                        type: "string",
+                        required: false,
+                        description: "Slot"
+                      },
+                      {
+                        name: "UserName",
+                        type: "string",
+                        required: false,
+                        description: "demo_02"
+                      },
+                      {
+                        name: "TotalBetAmount",
+                        type: "number",
+                        required: false,
+                        description: "56.25"
+                      },
+                      {
+                        name: "TotalWinlost",
+                        type: "number",
+                        required: false,
+                        description: "1930.00"
+                      },
+                      {
+                        name: "TotalProfit",
+                        type: "number",
+                        required: false,
+                        description: "1873.75"
+                      },
+                      {
+                        name: "ProviderId",
+                        type: "integer",
+                        required: false,
+                        description: "8"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "FromDate":"2019-08-01 00:00:00",
+              "ToDate":"2019-08-30 00:00:00",
+              "ProviderId": 3
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "OK",
+              "data": {
+                  "GameType": "Slot",
+                  "UserName": "demo_02",
+                  "TotalBetAmount": 56.25,
+                  "TotalWinlost": 1930.00,
+                  "TotalProfit": 1873.75,
+                  "ProviderId": 8
+              }
+            }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "WinloseAllV2",
+        id: "winloseallv2",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/winloseallv2",
+        description: "Get list of winlose summary data from all players in specified provider. So, this function doesn’t require authorization token as above functions. But it requires ApiKey and AgentName instead.",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "The Agentname pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "FromDate",
+                type: "string",
+                required: true,
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ToDate",
+                type: "string",
+                required: true,
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "integer",
+                required: true,
+                description: "The provider-id. Set = -1 to get all data",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameType",
+                type: "string",
+                required: false,
+                description: "GameType. Set = “” to get all gametype",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: [
+                      {
+                        name: "TotalBetAmount",
+                        type: "number",
+                        required: false,
+                        description: "0.0"
+                      },
+                      {
+                        name: "TotalWinlost",
+                        type: "number",
+                        required: false,
+                        description: "0.0"
+                      },
+                      {
+                        name: "TotalProfit",
+                        type: "number",
+                        required: false,
+                        description: "0.0"
+                      },
+                      {
+                        name: "ProviderId",
+                        type: "integer",
+                        required: false,
+                        description: "4"
+                      },
+                      {
+                        name: "Provider",
+                        type: "string",
+                        required: false,
+                        description: "PP"
+                      },
+                      {
+                        name: "GameType",
+                        type: "string",
+                        required: false,
+                        description: "Slot"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ApiKey":"{{api_key}}",
+              "AgentName":"{{agent_name}}",
+              "FromDate":"2019-08-01 00:00:00",
+              "ToDate":"2019-08-30 00:00:00",
+              "ProviderId": 4,
+              "GameType": "Slot"
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "data": {
+                  "TotalBetAmount": 0.0,
+                  "TotalWinlost": 0.0,
+                  "TotalProfit": 0.0,
+                  "ProviderId": 4,
+                  "Provider": "PP",
+                  "GameType": "Slot"
+              }
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "List available game",
+        id: "list_available_game",
         type: ApiEnum.GET,
-        endpoint: "/betDetailUrl",
-        description: "The bet detail Url.",
+        endpoint: "https://{{data_domain}}/data/games",
+        description: "Get list of winlose summary data from all players in specified provider. So, this function doesn’t require authorization token as above functions. But it requires ApiKey and AgentName instead.",
         parameter: [
           {
-            name: "PATH PARAMETERS",
-            description: "",
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
             params: [
               {
-                name: "betDetailUrl",
+                name: "ApiKey",
                 type: "string",
                 required: true,
-                description: "The URL for the operator to redirect the player to the proper bet detail page.",
+                description: "The key pre-agreed between fund provider and middleware system.",
                 restriction: [],
+                schema: []
+              },
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "The Agentname pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "integer",
+                required: true,
+                description: "The provider-id. Set = -1 to get all data",
+                restriction: [],
+                schema: []
               }
             ]
-          },
+          }
         ],
         responses: [
           {
@@ -2247,34 +5122,65 @@ export const apiData = [
                 description: "application/json",
                 params: [
                   {
-                    name: "errorMessage",
-                    type: "string",
-                    required: false,
-                    description: "Error Code List.",
-                    restriction: [],
-                  },
-                  {
-                    name: "errorCode",
+                    name: "error",
                     type: "integer",
                     required: false,
-                    description: "0,404",
+                    description: "0",
                     restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "OK",
+                    restriction: [],
+                    schema: []
                   },
                   {
                     name: "data",
-                    type: "object",
+                    type: "string",
                     required: false,
                     description: "",
                     restriction: [],
-                    schema: [
-                      {
-                        name: "url",
-                        type: "string",
-                        required: false,
-                        description: "Url",
-                      },
-                    ]
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
                   },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
                 ]
               }
             ]
@@ -2283,112 +5189,673 @@ export const apiData = [
         sample: [
           {
             name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ApiKey":"{{api_key}}",
+              "AgentName":"{{agent_name}}",
+              "providerId": 6
+              }
+          },
+          {
+            name: "Response samples",
             payload: "200",
             contentType: "application/json",
             json: {
-              "errorMessage": "string",
-              "errorCode": 0,
-              "data": {
-                "url": "string"
+              "error": 0,
+              "message": "OK",
+              "data": [
+                  {
+                      "ProviderId": 6,
+                      "ProviderName": "Sexy Gaming",
+                      "GameId": "",
+                      "GameName": "Sexy Baccarat",
+                      "GameType": "SexyBaccarat",
+                      "GameImageUrl": "https://image.12live.vip/icons/live/Game_MX_Sexy_Gaming_Lobby_910x367.png",
+                      "OrderBy": 14
+                  },
+                  {
+                      "ProviderId": 6,
+                      "ProviderName": "Sexy Gaming",
+                      "GameId": "2",
+                      "GameName": "Sexy Baccarat",
+                      "GameType": "SexyBaccarat",
+                      "GameImageUrl": "https://image.12live.vip/icons/ag_casino/Live_Dealers.png",
+                      "OrderBy": 118
+                  }
+              ]
               }
-            }
           },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "GetGameHistoryUrlByRoundId",
+        id: "getgamehistoryurlbyroundid",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/get-game-history-url-by-roundid",
+        description: "",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "The AgentName pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Language",
+                type: "string",
+                required: false,
+                description: "See Appendix",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "integer",
+                required: true,
+                description: "The provider-id",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "RoundId",
+                type: "string",
+                required: true,
+                description: "RoundId of game",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PlayerUsername",
+                type: "string",
+                required: true,
+                description: "",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameType",
+                type: "string",
+                required: false,
+                description: "Gametype",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "http",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ApiKey":"{{api_key}}",
+              "AgentName":"{{agent_name}}",
+              "Language": "en-US",
+              "ProviderId": "8",
+              "RoundId":"3396984",
+              "PlayerUsername":"player01",
+              "GameType":""
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "data": "http://...."
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "MMG-OutStandingBets",
+        id: "mmg-outstandingbets",
+        type: ApiEnum.POST,
+        endpoint: "https://{{data_domain}}/data/mmg-outstandingbets",
+        description: "",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "The Agentname pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "UserName",
+                type: "string",
+                required: false,
+                description: "Get outstanding bets for user by username, if not will get outstanding bets for all agent users",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "[]",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "AgentName" : "{{agent_name}}",
+              "ApiKey" : "{{api_key}}",
+              "UserName" : "UserName1"
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "data": [
+                  {
+                      "username": "demo01",
+                      "orderTime": "2022-04-26T03:12:50.313",
+                      "stake": 3.00,
+                      "transGuid": "mm-32323572",
+                      "providerId": 8,
+                      "gameId": "32323572",
+                      "ProductType": "Aztec King",
+                      "TableName": "35",
+                      "GameType": "Slot",
+                  }
+              ]
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": []
+              }
+          }
+        ]
+      },
+      {
+        title: "BetListDetailsV2",
+        id: "betlistdetailsv2",
+        type: ApiEnum.POST,
+        endpoint: "https://{{api_domain}}/data/BetListDetailsV2",
+        description: "Like the BetListDetails (3.13) function but the input is different. This version will require Agent Name, API Key and Playername, instead of Authorization token.",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "fromDate",
+                type: "string",
+                required: true,
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "toDate",
+                type: "string",
+                required: true,
+                description: "This is a string that represents a date. The format is “YYYY-MM-DD HH:mm:ss”",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "Agent name that we provided you",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "APIKey",
+                type: "string",
+                required: true,
+                description: "APIKey that we provided you",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "providerId",
+                type: "integer",
+                required: true,
+                description: "The provider-id. So, the result will be limited to this provider only.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "pageIndex",
+                type: "integer",
+                required: true,
+                description: "This integer denotes the page index that you want to get bet list. Starting with 1.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "pageSize",
+                type: "integer",
+                required: false,
+                description: "This value will limit the result of the response. It is optional. If not present, default value for pageSize is 100.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TimeSpecific",
+                type: "boolean",
+                required: false,
+                description: "By default, this field will have the value `false`. When this field is `true`, we will consider to limit the result to the specific time in `fromDate` and `toDate`",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: [
+                      {
+                        name: "Count",
+                        type: "integer",
+                        required: false,
+                        description: "1"
+                      },
+                      {
+                        name: "Entities",
+                        type: "string",
+                        required: false,
+                        description: ""
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "AgentName": "agname",
+              "PlayerName": "test01",
+              "APIKey": "-----",
+              "fromDate":"2020-05-22 01:06:00",
+              "toDate":"2020-07-22 01:07:00",
+              "pageIndex": 1,
+              "PageSize": 20,
+              "providerId": 2,
+              "TimeSpecific": false
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "data": {
+                  "Count": 1,
+                  "Entities": [
+                      {
+                          "UserName": "ccaskdksport",
+                          "TransGuid": "3998214",
+                          "ActualStake": 98.00,
+                          "WinLost": 49.00,
+                          "Profit": -49.00,
+                          "StartAmount": 100004.77,
+                          "WinLoseDate": "2020-07-07T04:00:00",
+                          "BetDate": "2020-07-07T10:53:39.43",
+                          "GameType": "SportsBook",
+                          "GameId": null,
+                          "ProductType": "Football",
+                          "TableName": null,
+                          "Status": "Settled",
+                          "ProviderStatus": "lose",
+                          "ProviderId": 2,
+                          "Provider": "SBO_BetFun",
+                          "Result": null,
+                          "PlayTypeName": null,
+                          "SubBets": "[    {      \"transId\": 3998214,      \"betOption\": \"Chelsea\",      \"marketType\": \"Handicap\",      \"hdp\": -1.25,      \"odds\": -0.98,      \"league\": \"ENGLISH PREMIER LEAGUE\",      \"match\": \"Crystal Palace vs Chelsea\",      \"status\": \"lose\",      \"winlostDate\": \"2020-07-07T00:00:00\",      \"liveScore\": \"0:0\",      \"htScore\": \"1:2\",      \"ftScore\": \"2:3\",      \"customeizedBetType\": \"\",      \"isHalfWonLose\": false,      \"isLive\": false,      \"kickOffTime\": \"2020-07-07T13:00:00\"    }  ]"
+                      }
+                  ]
+              }
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
         ]
       },
     ]
   },
   {
-    title: "Promotion",
-    id: "promotion",
+    title: "Seamless",
+    id: "seamless",
     api: [
       {
-        title: "Get Vouchers [Optional]",
-        id: "get_vouchers",
+        title: "Get Balance",
+        id: "get_balance",
         type: ApiEnum.POST,
-        endpoint: "/{funkyUrl}/User/GetVoucher",
-        description: "If you want enable voucher, please contact FunkySupport.",
+        endpoint: "",
+        description: "Sync player’s balance periodically",
         parameter: [
-          {
-            name: "PATH PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "funkyUrl",
-                type: "string",
-                required: true,
-                description: "Funky System's URL",
-                restriction: [],
-              }
-            ]
-          },
-          {
-            name: "HEADER PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "User-Agent",
-                type: "string",
-                required: true,
-                description: "Operator’s identifiable name.",
-                restriction: [],
-              },
-              {
-                name: "Authentication",
-                type: "string",
-                required: true,
-                description: "Authentication token.",
-                restriction: [],
-              },
-              {
-                name: "X-Request-ID",
-                type: "string",
-                required: true,
-                description: "Identifier for log tracing. Please use a mixed alphanumeric string in the form of a UUID, with a length of up to 64 characters.",
-                restriction: [],
-              },
-            ]
-          },
           {
             name: "REQUEST BODY SCHEMA",
             description: "application/json",
             params: [
               {
-                name: "currency",
+                name: "ApiKey",
                 type: "string",
                 required: true,
-                description: "User currency (if you want to use kcurrency please contact to FunkySupport).",
+                description: "The key pre-agreed between fund provider and middleware system.",
                 restriction: [],
+                schema: []
               },
               {
-                name: "fpId",
-                type: "integer <int32>",
-                required: true,
-                description: "Platform ID.",
-                restriction: [],
-              },
-              {
-                name: "gameCode",
+                name: "action",
                 type: "string",
                 required: true,
-                description: "The game (by code) to be launched.",
+                description: "Notice: we will send the exact value `getBalance` ",
                 restriction: [],
+                schema: []
               },
               {
-                name: "playerId",
+                name: "userId",
                 type: "string",
-                required: true,
-                description: "The unique ID of the player. At least 3 characters are required.",
+                required: false,
+                description: "userId in 12live system",
                 restriction: [],
+                schema: []
               },
               {
-                name: "sessionId",
+                name: "userName",
                 type: "string",
-                required: true,
-                description: "User session from platform, the unique ID when the player launch game.",
+                required: false,
+                description: "Player username",
                 restriction: [],
-              },
+                schema: []
+              }
             ]
-          },
+          }
         ],
         responses: [
           {
@@ -2400,393 +5867,229 @@ export const apiData = [
                 description: "application/json",
                 params: [
                   {
-                    name: "errorCode",
+                    name: "error",
                     type: "integer",
                     required: false,
-                    description: "0,401",
+                    description: "0",
                     restriction: [],
+                    schema: []
                   },
                   {
-                    name: "errorMessage",
+                    name: "message",
                     type: "string",
-                    required: false,
-                    description: "Error Code List.",
-                    restriction: [],
-                  },
-                  {
-                    name: "data",
-                    type: "object",
                     required: false,
                     description: "",
                     restriction: [],
-                    schema: [
-                      {
-                        name: "totalRemainAmount",
-                        type: "number <double>",
-                        required: false,
-                        description: "Total Remain Amount",
-                      },
-                      {
-                        name: "vouchers",
-                        type: "Array of objects",
-                        required: false,
-                        description: "Vouchers",
-                      },
-                    ]
+                    schema: []
                   },
-                ]
-              }
-            ]
-          }
-        ],
-        sample: [
-          {
-            name: "Request samples",
-            payload: "Payload",
-            contentType: "application/json",
-            json: {
-              "playerId": "string",
-              "gameCode": "string",
-              "sessionId": "string",
-              "fpId": 0,
-              "currency": "string"
-            }
-          },
-          {
-            name: "Response samples",
-            payload: "200",
-            contentType: "application/json",
-            json: {
-              "errorCode": 0,
-              "errorMessage": "string",
-              "data": {
-                "totalRemainAmount": 0,
-                "vouchers": [
                   {
-                  "voucherId": "string",
-                  "fixStake": 0,
-                  "effectiveDate": "2019-08-24T14:15:22Z",
-                  "expireDate": "2019-08-24T14:15:22Z",
-                  "freeSpin": 0,
-                  "usedFreeSpin": 0,
-                  "netFreeSpin": 0,
-                  "gameCode": "string"
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "10000.23 //",
+                    restriction: [],
+                    schema: []
                   }
                 ]
               }
-            }
-          },
-        ]
-      },
-    ]
-  },
-  {
-    title: "Consolidate Report",
-    id: "consolidate_report",
-    api: [
-      {
-        title: "Win/Loss Report API by Player",
-        id: "win_loss_report_api_player",
-        type: ApiEnum.POST,
-        endpoint: "/{gameUrl}/Funky/Report/GetActivePlayerByGame",
-        description: "Get win/loss report by GameCode, StartDate, EndDate, FpId and Page.",
-        parameter: [
-          {
-            name: "PATH PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "gameUrl",
-                type: "string",
-                required: true,
-                description: "Game Provider's URL.",
-                restriction: [],
-              }
             ]
           },
           {
-            name: "HEADER PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "User-Agent",
-                type: "string",
-                required: true,
-                description: "Operator’s identifiable name.",
-                restriction: [],
-              },
-              {
-                name: "Authentication",
-                type: "string",
-                required: true,
-                description: "Authentication token.",
-                restriction: [],
-              },
-              {
-                name: "X-Request-ID",
-                type: "string",
-                required: true,
-                description: "Identifier for log tracing. Please use a mixed alphanumeric string in the form of a UUID, with a length of up to 64 characters.",
-                restriction: [],
-              },
-            ]
-          },
-          {
-            name: "REQUEST BODY SCHEMA",
-            description: "application/json",
-            params: [
-              {
-                name: "endDate",
-                type: "string <date-time>",
-                required: true,
-                description: "yyyy-MM-dd (StatementDate)",
-                restriction: [],
-              },
-              {
-                name: "fpId",
-                type: "integer <int32>",
-                required: true,
-                description: "Platform ID.",
-                restriction: [],
-              },
-              {
-                name: "gameCode",
-                type: "string",
-                required: true,
-                description: "The game (by code) to be launched.",
-                restriction: [],
-              },
-              {
-                name: "includeTestAccount",
-                type: "boolean",
-                required: true,
-                description: "If true, all data should include test accounts. If false, all data should not include test accounts.",
-                restriction: [],
-              },
-              {
-                name: "page",
-                type: "integer <int32>",
-                required: true,
-                description: "Current page.",
-                restriction: [],
-              },
-              {
-                name: "startDate",
-                type: "string <date-time>",
-                required: true,
-                description: "yyyy-MM-dd (StatementDate)",
-                restriction: [],
-              },
-            ]
-          },
-        ],
-        responses: [
-          {
-            code: 200,
-            message: "OK",
+            code: 500,
+            message: "InternalServer",
             parameter: [
               {
                 name: "RESPONSE SCHEMA",
                 description: "application/json",
                 params: [
                   {
-                    name: "errorCode",
-                    type: "integer",
-                    required: false,
-                    description: "0",
-                    restriction: [],
-                  },
-                  {
-                    name: "errorMessage",
+                    name: "error",
                     type: "string",
                     required: false,
-                    description: "Error Code List.",
+                    description: "1 //has error if greater than 0",
                     restriction: [],
+                    schema: []
                   },
                   {
-                    name: "totalPage",
-                    type: "integer <int32>",
+                    name: "message",
+                    type: "string",
                     required: false,
-                    description: "Total number of pages",
+                    description: "corresponding message",
                     restriction: [],
-                  },
-                  {
-                    name: "currentPage",
-                    type: "integer <int32>",
-                    required: false,
-                    description: "Current page.",
-                    restriction: [],
-                  },
-                  {
-                    name: "data",
-                    type: "Array of objects",
-                    required: false,
-                    description: "",
-                    restriction: [],
-                    schema: [
-                      {
-                        name: "playerId",
-                        type: "number <double>",
-                        required: false,
-                        description: "The unique ID of the player. At least 3 characters are required.",
-                      },
-                      {
-                        name: "currency",
-                        type: "string",
-                        required: false,
-                        description: "User currency (if you want to use kcurrency please contact to FunkySupport).",
-                      },
-                      {
-                        name: "betCount",
-                        type: "integer <int32>",
-                        required: false,
-                        description: "Bet Count",
-                      },
-                      {
-                        name: "totalStake",
-                        type: "number <double>",
-                        required: false,
-                        description: "TotalStake",
-                      },
-                      {
-                        name: "winloss",
-                        type: "number <double>",
-                        required: false,
-                        description: "Win/Loss = WinAmount - stake. PlayerA placed $10 to an bet option which odds was 1.95, and he wins then gets $19.5(winAmount), his winloss was $19.5-$10=$9.5. PlayerB placed $10 to an bet option which odds was 1.95, and he loss then gets $0 (winAmount), therefore the winloss of the bet is $0-$10=$-10",
-                      },
-                      {
-                        name: "isTestAccount",
-                        type: "boolean",
-                        required: false,
-                        description: "A flag indicates if the account is for testing or not.Default value set to false.",
-                      },
-                    ]
-                  },
-                ]
-              }
-            ]
-          }
-        ],
-        sample: [
-          {
-            name: "Request samples",
-            payload: "Payload",
-            contentType: "application/json",
-            json: {
-              "playerId": "string",
-              "gameCode": "string",
-              "sessionId": "string",
-              "fpId": 0,
-              "currency": "string"
-            }
-          },
-          {
-            name: "Response samples",
-            payload: "200",
-            contentType: "application/json",
-            json: {
-              "errorCode": 0,
-              "errorMessage": "string",
-              "data": {
-                "totalRemainAmount": 0,
-                "vouchers": [
-                  {
-                  "voucherId": "string",
-                  "fixStake": 0,
-                  "effectiveDate": "2019-08-24T14:15:22Z",
-                  "expireDate": "2019-08-24T14:15:22Z",
-                  "freeSpin": 0,
-                  "usedFreeSpin": 0,
-                  "netFreeSpin": 0,
-                  "gameCode": "string"
+                    schema: []
                   }
                 ]
               }
-            }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ApiKey":"{{api_key}}",
+              "action":"getBalance",
+              "userId":2268242,
+              "userName":"player1",
+              }
           },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "balance": 10000.23 //
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message"
+              }
+          }
         ]
       },
       {
-        title: "Transaction Report API by Statement Date",
-        id: "transaction_report_api_statement_date",
+        title: "Place Bet",
+        id: "place_bet",
         type: ApiEnum.POST,
-        endpoint: "/{gameUrl}/Funky/Report/GetTransactionListByStatementDate",
-        description: "Get transactions by StartDate, EndDate, FpId and Page. Each page contains up to 100 records.",
+        endpoint: "",
+        description: "Sending bet information to single wallet site 1. Every bet request response must include 'balance' parameter to update player balance on the page. 2. Current status of bet transaction is unsettled. 3. Any bet failure occurred will trigger 'Cancel Bet' function to cancel this transaction.",
         parameter: [
-          {
-            name: "PATH PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "gameUrl",
-                type: "string",
-                required: true,
-                description: "Game Provider's URL.",
-                restriction: [],
-              }
-            ]
-          },
-          {
-            name: "HEADER PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "User-Agent",
-                type: "string",
-                required: true,
-                description: "Operator’s identifiable name.",
-                restriction: [],
-              },
-              {
-                name: "Authentication",
-                type: "string",
-                required: true,
-                description: "Authentication token.",
-                restriction: [],
-              },
-              {
-                name: "X-Request-ID",
-                type: "string",
-                required: true,
-                description: "Identifier for log tracing. Please use a mixed alphanumeric string in the form of a UUID, with a length of up to 64 characters.",
-                restriction: [],
-              },
-            ]
-          },
           {
             name: "REQUEST BODY SCHEMA",
             description: "application/json",
             params: [
               {
-                name: "endDate",
-                type: "string <date-time>",
+                name: "ApiKey",
+                type: "string",
                 required: true,
-                description: "yyyy-MM-dd (StatementDate)",
+                description: "The key pre-agreed between fund provider and middleware system.",
                 restriction: [],
+                schema: []
               },
               {
-                name: "fpId",
-                type: "integer <int32>",
+                name: "action",
+                type: "string",
                 required: true,
-                description: "Platform ID.",
+                description: "bet",
                 restriction: [],
+                schema: []
               },
               {
-                name: "page",
-                type: "integer <int32>",
+                name: "userId",
+                type: "string",
                 required: true,
-                description: "Current page.",
+                description: "userId in 12live system",
                 restriction: [],
+                schema: []
               },
               {
-                name: "startDate",
-                type: "string <date-time>",
+                name: "userName",
+                type: "string",
                 required: true,
-                description: "yyyy-MM-dd (StatementDate)",
+                description: "Player username",
                 restriction: [],
+                schema: []
               },
+              {
+                name: "OrderTime",
+                type: "datetime",
+                required: true,
+                description: "Bet order time",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TransGuid",
+                type: "string",
+                required: true,
+                description: "Bet transguid. Bet request and Settle request using same TransGuid",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Stake",
+                type: "decimal",
+                required: true,
+                description: "how much user bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "int",
+                required: true,
+                description: "Game provider Id on 12live",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameId",
+                type: "string",
+                required: true,
+                description: "Round Id of game",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProductType",
+                type: "string",
+                required: true,
+                description: "Game name or Game code",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameType",
+                type: "string",
+                required: true,
+                description: "Type of game like : Slot, Live..",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TableName",
+                type: "string",
+                required: true,
+                description: "Table name of casino or Game code/ Game name on slot..",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PlayType",
+                type: "string",
+                required: false,
+                description: "Bet choose. Ex: Banker or Player on casino or Gate choose",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ExtraData",
+                type: "string",
+                required: false,
+                description: "game provider info",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "BetType",
+                type: "string",
+                required: false,
+                description: "",
+                restriction: [],
+                schema: []
+              }
+              
             ]
-          },
+          }
         ],
         responses: [
           {
@@ -2798,96 +6101,57 @@ export const apiData = [
                 description: "application/json",
                 params: [
                   {
-                    name: "errorCode",
+                    name: "error",
                     type: "integer",
                     required: false,
                     description: "0",
                     restriction: [],
+                    schema: []
                   },
                   {
-                    name: "errorMessage",
+                    name: "message",
                     type: "string",
-                    required: false,
-                    description: "Error Code List.",
-                    restriction: [],
-                  },
-                  {
-                    name: "totalPage",
-                    type: "integer <int32>",
-                    required: false,
-                    description: "Total number of pages",
-                    restriction: [],
-                  },
-                  {
-                    name: "currentPage",
-                    type: "integer <int32>",
-                    required: false,
-                    description: "Current page.",
-                    restriction: [],
-                  },
-                  {
-                    name: "data",
-                    type: "Array of objects",
                     required: false,
                     description: "",
                     restriction: [],
-                    schema: [
-                      {
-                        name: "statementDate",
-                        type: "string",
-                        required: false,
-                        description: "Format: yyyy-MM-dd. Statement date for settlement which includes date part only.",
-                      },
-                      {
-                        name: "fpId",
-                        type: "integer <int32>",
-                        required: false,
-                        description: "Platform ID.",
-                      },
-                      {
-                        name: "betCount",
-                        type: "integer <int32>",
-                        required: false,
-                        description: "Bet Count",
-                      },
-                      {
-                        name: "activePlayerCount",
-                        type: "integer <int32>",
-                        required: false,
-                        description: "Distinct Player Count",
-                      },
-                      {
-                        name: "gameCode",
-                        type: "string",
-                        required: false,
-                        description: "The game (by code) to be launched.",
-                      },
-                      {
-                        name: "currency",
-                        type: "string",
-                        required: false,
-                        description: "User currency (if you want to use kcurrency please contact to FunkySupport).",
-                      },
-                      {
-                        name: "betAmount",
-                        type: "number <double>",
-                        required: false,
-                        description: "Bet Amount(Effective Stake,Including Bonus Game)",
-                      },
-                      {
-                        name: "winLose",
-                        type: "number <double>",
-                        required: false,
-                        description: "Win/Lose = Payout - Stake",
-                      },
-                      {
-                        name: "payout",
-                        type: "number <double>",
-                        required: false,
-                        description: "Payout",
-                      },
-                    ]
+                    schema: []
                   },
+                  {
+                    name: "balance",
+                    type: "string",
+                    required: false,
+                    description: "10000.23 //",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  }
                 ]
               }
             ]
@@ -2895,123 +6159,523 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Request samples",
+            name: "Response samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
-              "startDate": "2019-08-24T14:15:22Z",
-              "endDate": "2019-08-24T14:15:22Z",
-              "fpId": 0,
-              "page": 0
-            }
+              "ApiKey":"{{api_key}}",
+              "action":"bet",
+              "data":[
+                  {
+                      "UserId": 2268242, 
+                      "UserName": "UserName1", 
+                      "OrderTime": "2020-01-07T06:18:53.573Z", 
+                      "TransGuid": "SEXYBCRT_BAC-60107294", 
+                      "Stake": 10.00, 
+                      "ProviderId": 6, 
+                      "GameId": "Mexico-01-GA242010045", 
+                      "ProductType": "MX-LIVE-001", 
+                      "GameType": "LIVE", 
+                      "TableName": "Baccarat",
+                      "PlayType": "",
+                      "ExtraData": "",
+                      "BetType": ""
+                  }
+                ]
+              }
           },
           {
             name: "Response samples",
             payload: "200",
             contentType: "application/json",
             json: {
-              "errorCode": 0,
-              "errorMessage": "string",
-              "totalPage": 0,
-              "currentPage": 0,
-              "data": [
-                {
-                "statementDate": "string",
-                "playerId": "string",
-                "betId": "string",
-                "currency": "string",
-                "gameCode": "string",
-                "betAmount": 0,
-                "winloss": 0,
-                "stake": 0,
-                "payout": 0
-                }
+              "error": 0,
+              "message": "",
+              "balance": 10000.23,
+              "data":[
+                  {
+                      "error": "0", 
+                      "transId": " SEXYBCRT_BAC-60107294", 
+                      "userId": "2268242", 
+                      "balance": 1000.20,
+                  }
               ]
-            }
+              }
           },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              }
+          }
         ]
       },
       {
-        title: "Win/Loss Report API by StatementDate",
-        id: "win_loss_report_api_statement_date",
+        title: "Cancel Bet",
+        id: "cancel_bet",
         type: ApiEnum.POST,
-        endpoint: "/{gameUrl}/Funky/Report/GetConsolidateByStatementDate",
-        description: "Get win/loss report by StartDate, EndDate, FpId.",
+        endpoint: "",
+        description: "Sending bet information to single wallet site 1. When place bet has failure will call 'Cancel Bet'. 2. When cancel bet is unsuccessful will schedule a job to repeat it until success.",
         parameter: [
-          {
-            name: "PATH PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "gameUrl",
-                type: "string",
-                required: true,
-                description: "Game Provider's URL.",
-                restriction: [],
-              }
-            ]
-          },
-          {
-            name: "HEADER PARAMETERS",
-            description: "",
-            params: [
-              {
-                name: "User-Agent",
-                type: "string",
-                required: true,
-                description: "Operator’s identifiable name.",
-                restriction: [],
-              },
-              {
-                name: "Authentication",
-                type: "string",
-                required: true,
-                description: "Authentication token.",
-                restriction: [],
-              },
-              {
-                name: "X-Request-ID",
-                type: "string",
-                required: true,
-                description: "Identifier for log tracing. Please use a mixed alphanumeric string in the form of a UUID, with a length of up to 64 characters.",
-                restriction: [],
-              },
-            ]
-          },
           {
             name: "REQUEST BODY SCHEMA",
             description: "application/json",
             params: [
               {
-                name: "endDate",
-                type: "string <date-time>",
+                name: "ApiKey",
+                type: "string",
                 required: true,
-                description: "yyyy-MM-dd (StatementDate)",
+                description: "The key pre-agreed between fund provider and middleware system.",
                 restriction: [],
+                schema: []
               },
               {
-                name: "includeTestAccount",
+                name: "action",
+                type: "string",
+                required: true,
+                description: "bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "userId",
+                type: "string",
+                required: true,
+                description: "userId in 12live system",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "userName",
+                type: "string",
+                required: true,
+                description: "Player username",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "OrderTime",
+                type: "datetime",
+                required: true,
+                description: "Bet order time",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TransGuid",
+                type: "string",
+                required: true,
+                description: "Bet transguid. Bet request and Settle request using same TransGuid",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Stake",
+                type: "decimal",
+                required: true,
+                description: "how much user bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "int",
+                required: true,
+                description: "Game provider Id on 12live",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameId",
+                type: "string",
+                required: true,
+                description: "Round Id of game",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProductType",
+                type: "string",
+                required: true,
+                description: "Game name or Game code",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameType",
+                type: "string",
+                required: true,
+                description: "Type of game like : Slot, Live..",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TableName",
+                type: "string",
+                required: true,
+                description: "Table name of casino or Game code/ Game name on slot..",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PlayType",
+                type: "string",
+                required: false,
+                description: "Bet choose. Ex: Banker or Player on casino or Gate choose",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ExtraData",
+                type: "string",
+                required: false,
+                description: "game provider info",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "BetType",
+                type: "string",
+                required: false,
+                description: "",
+                restriction: [],
+                schema: []
+              }
+              
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "balance",
+                    type: "string",
+                    required: false,
+                    description: "10000.23 //",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ApiKey":"{{api_key}}",
+              "action":"cancelBet",
+              "data":[
+                  {
+                      "UserId": 2268242, 
+                      "UserName": "UserName1", 
+                      "OrderTime": "2020-01-07T06:18:53.573Z", 
+                      "TransGuid": "SEXYBCRT_BAC-60107294", 
+                      "Stake": 10.00, 
+                      "ProviderId": 6, 
+                      "GameId": "Mexico-01-GA242010045", 
+                      "ProductType": "MX-LIVE-001", 
+                      "GameType": "LIVE", 
+                      "TableName": "Baccarat",
+                "PlayType": "",
+                "ExtraData": "",
+                "BetType": ""
+                  }
+              ]
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "balance": 1000.20,
+              "data":[
+                  {
+                      "error": 0, 
+                      "transId": "SEXYBCRT_BAC-60107294", 
+                      "userId": 2268242, 
+                      "balance": 1000.20,
+                  }
+              ]
+          
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              }
+          }
+        ]
+      },
+      {
+        title: "Settle Bet",
+        id: "place_bet",
+        type: ApiEnum.POST,
+        endpoint: "",
+        description: "Sending transactions when had settled.",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "action",
+                type: "string",
+                required: true,
+                description: "bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "userId",
+                type: "string",
+                required: true,
+                description: "userId in 12live system",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "userName",
+                type: "string",
+                required: true,
+                description: "Player username",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "OrderTime",
+                type: "datetime",
+                required: true,
+                description: "Bet order time",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TransGuid",
+                type: "string",
+                required: true,
+                description: "Bet transguid. Bet request and Settle request using same TransGuid",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Stake",
+                type: "decimal",
+                required: true,
+                description: "how much user bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Winlost",
+                type: "decimal",
+                required: true,
+                description: "Player winlost (included Stake)",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TurnOver",
+                type: "decimal",
+                required: true,
+                description: "",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Currency",
+                type: "string",
+                required: true,
+                description: "User currency",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "int",
+                required: true,
+                description: "Game provider Id on 12live",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Provider",
+                type: "string",
+                required: false,
+                description: "Provider name",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameId",
+                type: "string",
+                required: true,
+                description: "Round Id of game",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProductType",
+                type: "string",
+                required: true,
+                description: "Game name or Game code",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameType",
+                type: "string",
+                required: true,
+                description: "Type of game like : Slot, Live..",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TableName",
+                type: "string",
+                required: true,
+                description: "Table name of casino or Game code/ Game name on slot..",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PlayType",
+                type: "string",
+                required: true,
+                description: "Bet choose. Ex: Banker or Player on casino or Gate choose",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ModifyDate",
+                type: "datetime",
+                required: true,
+                description: "Modify date in case resettle we can know when this record resettle.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "WinloseDate",
+                type: "datetime",
+                required: true,
+                description: "Winlose time",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Status",
+                type: "String",
+                required: true,
+                description: "CurrentStatus",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderStatus",
+                type: "String",
+                required: false,
+                description: "Reference provider status",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "EndRound",
                 type: "boolean",
                 required: true,
-                description: "If true, all data should include test accounts. If false, all data should not include test accounts.",
+                description: "Is this settle end of round",
                 restriction: [],
+                schema: []
               },
               {
-                name: "startDate",
-                type: "string <date-time>",
-                required: true,
-                description: "yyyy-MM-dd (StatementDate)",
+                name: "BetType",
+                type: "String",
+                required: false,
+                description: "Bet type",
                 restriction: [],
+                schema: []
               },
               {
-                name: "fpId",
-                type: "integer <int32>",
-                required: true,
-                description: "Platform ID.",
+                name: "ReferenceTrans",
+                type: "String",
+                required: false,
+                description: "Reference tranguid",
                 restriction: [],
+                schema: []
               },
             ]
-          },
+          }
         ],
         responses: [
           {
@@ -3023,82 +6687,57 @@ export const apiData = [
                 description: "application/json",
                 params: [
                   {
-                    name: "errorCode",
+                    name: "error",
                     type: "integer",
                     required: false,
                     description: "0",
                     restriction: [],
+                    schema: []
                   },
                   {
-                    name: "errorMessage",
+                    name: "message",
                     type: "string",
-                    required: false,
-                    description: "Error Code List.",
-                    restriction: [],
-                  },
-                  {
-                    name: "data",
-                    type: "Array of objects",
                     required: false,
                     description: "",
                     restriction: [],
-                    schema: [
-                      {
-                        name: "statementDate",
-                        type: "string",
-                        required: false,
-                        description: "Format: yyyy-MM-dd. Statement date for settlement which includes date part only.",
-                      },
-                      {
-                        name: "fpId",
-                        type: "integer <int32>",
-                        required: false,
-                        description: "Platform ID.",
-                      },
-                      {
-                        name: "betCount",
-                        type: "integer <int32>",
-                        required: false,
-                        description: "Bet Count",
-                      },
-                      {
-                        name: "activePlayerCount",
-                        type: "integer <int32>",
-                        required: false,
-                        description: "Distinct Player Count",
-                      },
-                      {
-                        name: "gameCode",
-                        type: "string",
-                        required: false,
-                        description: "The game (by code) to be launched.",
-                      },
-                      {
-                        name: "currency",
-                        type: "string",
-                        required: false,
-                        description: "User currency (if you want to use kcurrency please contact to FunkySupport).",
-                      },
-                      {
-                        name: "betAmount",
-                        type: "number <double>",
-                        required: false,
-                        description: "Bet Amount(Effective Stake,Including Bonus Game)",
-                      },
-                      {
-                        name: "winLose",
-                        type: "number <double>",
-                        required: false,
-                        description: "Win/Lose = Payout - Stake",
-                      },
-                      {
-                        name: "payout",
-                        type: "number <double>",
-                        required: false,
-                        description: "Payout",
-                      },
-                    ]
+                    schema: []
                   },
+                  {
+                    name: "balance",
+                    type: "string",
+                    required: false,
+                    description: "10000.23 //",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  }
                 ]
               }
             ]
@@ -3106,40 +6745,1483 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Request samples",
+            name: "Response samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
-              "startDate": "2019-08-24T14:15:22Z",
-              "endDate": "2019-08-24T14:15:22Z",
-              "fpId": 0,
-              "includeTestAccount": true
-            }
+              "ApiKey":"{{api_key}}",
+              "action":"settle",
+              "data":[
+                  {
+                      "UserId": 2268242, 
+                      "UserName": "UserName1", 
+                      "OrderTime": "2020-01-07T06:18:53.573Z", 
+                      "TransGuid": "SEXYBCRT_BAC-60107294", 
+                      "Stake": 10.00, 
+                      "Winlost": 20.00,
+                      "TurnOver": 10.00,
+                      "Currency": "MYR",
+                      "ProviderId": 6, 
+                      "Provider": "Sexy", 
+                      "GameId": "Mexico-01-GA242010045", 
+                      "ProductType": "MX-LIVE-001", 
+                      "GameType": "LIVE", 
+                      "TableName": "Baccarat",
+                      "PlayType": "",
+                      "ModifyDate": "2020-01-07T06:19:29.477Z",
+                      "WinloseDate": "2020-01-07T06:19:29.477Z",
+                      "Status": "Settled",
+                      "ProviderStatus": "Settled",
+                      "EndRound": true,
+                      "BetType": "",
+                      "ReferenceTrans": ""
+                  }
+              ]
+
+              }
           },
           {
             name: "Response samples",
             payload: "200",
             contentType: "application/json",
             json: {
-              "errorCode": 0,
-              "errorMessage": "string",
-              "data": [
-                {
-                "statementDate": "string",
-                "fpId": 0,
-                "betCount": 0,
-                "activePlayerCount": 0,
-                "gameCode": "string",
-                "currency": "string",
-                "betAmount": 0,
-                "winLose": 0,
-                "payout": 0
-                }
+              "error": 0,
+              "message": "",
+              "balance": 1000.20,
+              "data":[
+                  {
+                      "error": 0, 
+                      "transId": "SEXYBCRT_BAC-60107294", 
+                      "userId": 2268242, 
+                      "balance": 1000.20,
+                  }
               ]
-            }
+              }
           },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              }
+          }
         ]
       },
+      {
+        title: "Void Bet",
+        id: "void_bet",
+        type: ApiEnum.POST,
+        endpoint: "",
+        description: "Sending transactions when unsettled transactions had voided.",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "action",
+                type: "string",
+                required: true,
+                description: "bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "userId",
+                type: "string",
+                required: true,
+                description: "userId in 12live system",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "userName",
+                type: "string",
+                required: true,
+                description: "Player username",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "OrderTime",
+                type: "datetime",
+                required: true,
+                description: "Bet order time",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TransGuid",
+                type: "string",
+                required: true,
+                description: "Bet transguid. Bet request and Settle request using same TransGuid",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Stake",
+                type: "decimal",
+                required: true,
+                description: "how much user bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "int",
+                required: true,
+                description: "Game provider Id on 12live",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameId",
+                type: "string",
+                required: true,
+                description: "Round Id of game",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProductType",
+                type: "string",
+                required: true,
+                description: "Game name or Game code",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameType",
+                type: "string",
+                required: true,
+                description: "Type of game like : Slot, Live..",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TableName",
+                type: "string",
+                required: true,
+                description: "Table name of casino or Game code/ Game name on slot..",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PlayType",
+                type: "string",
+                required: false,
+                description: "Bet choose. Ex: Banker or Player on casino or Gate choose",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ExtraData",
+                type: "string",
+                required: false,
+                description: "game provider info",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "BetType",
+                type: "string",
+                required: false,
+                description: "Bet type",
+                restriction: [],
+                schema: []
+              }
+              
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "10000.23 //",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ApiKey":"{{api_key}}",
+              "action":"voidBet",
+              "data":[
+                  {
+                      "UserId": 2268242, 
+                      "UserName": "UserName1", 
+                      "OrderTime": "2020-01-07T06:18:53.573Z", 
+                      "TransGuid": "SEXYBCRT_BAC-60107294", 
+                      "Stake": 10.00, 
+                      "ProviderId": 6, 
+                      "GameId": "Mexico-01-GA242010045", 
+                      "ProductType": "MX-LIVE-001", 
+                      "GameType": "LIVE", 
+                      "TableName": "Baccarat",
+                      "PlayType": "",
+                      "ExtraData": "",
+                      "BetType": ""
+                  }
+              ]
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "balance": 1000.20 ,
+              "data":[
+                  {
+                      "error": 0, 
+                      "transId": "SEXYBCRT_BAC-60107294", 
+                      "userId": 2268242, 
+                      "balance": 1000.20,
+                  }
+              ]
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message"
+              }
+          }
+        ]
+      },
+      {
+        title: "UnSettle",
+        id: "unSettle",
+        type: ApiEnum.POST,
+        endpoint: "",
+        description: "Sending transactions when had unsettled.",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "action",
+                type: "string",
+                required: true,
+                description: "bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "userId",
+                type: "string",
+                required: true,
+                description: "userId in 12live system",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "userName",
+                type: "string",
+                required: true,
+                description: "Player username",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "OrderTime",
+                type: "datetime",
+                required: true,
+                description: "Bet order time",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TransGuid",
+                type: "string",
+                required: true,
+                description: "Bet transguid. Bet request and Settle request using same TransGuid",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Stake",
+                type: "decimal",
+                required: true,
+                description: "how much user bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "int",
+                required: true,
+                description: "Game provider Id on 12live",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameId",
+                type: "string",
+                required: true,
+                description: "Round Id of game",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProductType",
+                type: "string",
+                required: true,
+                description: "Game name or Game code",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameType",
+                type: "string",
+                required: true,
+                description: "Type of game like : Slot, Live..",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TableName",
+                type: "string",
+                required: true,
+                description: "Table name of casino or Game code/ Game name on slot..",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PlayType",
+                type: "string",
+                required: false,
+                description: "Bet choose. Ex: Banker or Player on casino or Gate choose",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ModifyDate",
+                type: "datetime",
+                required: true,
+                description: "Modify date in case resettle we can know when this record resettle.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "EndRound",
+                type: "boolean",
+                required: true,
+                description: "Is this settle end of round",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "BetType",
+                type: "string",
+                required: false,
+                description: "Bet type",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ReferenceTrans",
+                type: "string",
+                required: false,
+                description: "Reference tranguid",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "10000.20",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ApiKey":"{{api_key}}",
+              "action":"unsettle",
+              "data":[
+                  {
+                      "UserId": 2268242, 
+                      "UserName": "UserName1", 
+                      "OrderTime": "2020-01-07T06:18:53.573Z", 
+                      "TransGuid": "SEXYBCRT_BAC-60107294", 
+                      "Stake": 10.00, 
+                      "ProviderId": 6, 
+                      "GameId": "Mexico-01-GA242010045", 
+                      "ProductType": "MX-LIVE-001", 
+                      "GameType": "LIVE", 
+                      "TableName": "Baccarat",
+                      "PlayType": "",
+                      "ModifyDate": "2020-01-07T06:19:29.477Z",
+                      "EndRound": true,
+                      "BetType": "",
+                      "ReferenceTrans": ""
+                  }
+              ]
+
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "balance": 1000.20 ,
+              "data":[
+                  {
+                      "error": 0, 
+                      "transId": "SEXYBCRT_BAC-60107294", 
+                      "userId": 2268242, 
+                      "balance": 1000.20,
+                  }
+              ]
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message"
+              }
+          }
+        ]
+      },
+      {
+        title: "Resettle",
+        id: "resettle",
+        type: ApiEnum.POST,
+        endpoint: "",
+        description: "This function is used when the game provider changes the result of settled transactions. Change transaction status from 'Settle' to 'Settle'. Operators need to update the player's balance based on updated transactions Way to change Balance Current Balance + new Winlost amount (resettle) - old Winlost amount (settle)",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "action",
+                type: "string",
+                required: true,
+                description: "bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "userId",
+                type: "string",
+                required: true,
+                description: "userId in 12live system",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "userName",
+                type: "string",
+                required: true,
+                description: "Player username",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "OrderTime",
+                type: "datetime",
+                required: true,
+                description: "Bet order time",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TransGuid",
+                type: "string",
+                required: true,
+                description: "Bet transguid. Bet request and Settle request using same TransGuid",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Stake",
+                type: "decimal",
+                required: true,
+                description: "how much user bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Winlost",
+                type: "decimal",
+                required: true,
+                description: "Player winlost (included Stake)",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TurnOver",
+                type: "decimal",
+                required: true,
+                description: "",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Currency",
+                type: "string",
+                required: true,
+                description: "User currency",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "int",
+                required: true,
+                description: "Game provider Id on 12live",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Provider",
+                type: "string",
+                required: false,
+                description: "Provider name",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameId",
+                type: "string",
+                required: true,
+                description: "Round Id of game",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProductType",
+                type: "string",
+                required: true,
+                description: "Game name or Game code",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameType",
+                type: "string",
+                required: true,
+                description: "Type of game like : Slot, Live..",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TableName",
+                type: "string",
+                required: true,
+                description: "Table name of casino or Game code/ Game name on slot..",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PlayType",
+                type: "string",
+                required: false,
+                description: "Bet choose. Ex: Banker or Player on casino or Gate choose",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ModifyDate",
+                type: "datetime",
+                required: true,
+                description: "Modify date in case resettle we can know when this record resettle.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "EndRound",
+                type: "boolean",
+                required: true,
+                description: "Is this settle end of round",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "BetType",
+                type: "string",
+                required: false,
+                description: "Bet type",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ReferenceTrans",
+                type: "string",
+                required: false,
+                description: "Reference tranguid",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "10000.23 //",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ApiKey":"{{api_key}}",
+              "action":"resettle",
+              "data":[
+                  {
+                      "UserId": 2268242, 
+                      "UserName": "UserName1", 
+                      "OrderTime": "2020-01-07T06:18:53.573Z", 
+                      "TransGuid": "SEXYBCRT_BAC-60107294", 
+                      "Stake": 10.00, 
+                "Winlost": 20.00,
+                "TurnOver": 10.00,
+                "Currency": "MYR",
+                      "ProviderId": 6, 
+                      "Provider": "Sexy", 
+                      "GameId": "Mexico-01-GA242010045", 
+                      "ProductType": "MX-LIVE-001", 
+                      "GameType": "LIVE", 
+                      "TableName": "Baccarat",
+                "PlayType": "",
+                "ModifyDate": "2020-01-07T06:19:29.477Z",
+                "WinloseDate": "2020-01-07T06:19:29.477Z",
+                "Status": "Settled",
+                "ProviderStatus": "Settled",
+                "EndRound": true,
+                "BetType": "",
+                "ReferenceTrans": ""
+                  }
+              ]
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "balance": 1000.20 ,
+              "data":[
+                  {
+                      "error": 0, 
+                      "transId": "SEXYBCRT_BAC-60107294", 
+                      "userId": 2268242, 
+                      "balance": 1000.20,
+                  }
+              ]
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message"
+              }
+          }
+        ]
+      },
+      {
+        title: "Void Settle",
+        id: "void_settle",
+        type: ApiEnum.POST,
+        endpoint: "",
+        description: "Sending transactions when settled transactions had voided.",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "action",
+                type: "string",
+                required: true,
+                description: "bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "userId",
+                type: "string",
+                required: true,
+                description: "userId in 12live system",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "userName",
+                type: "string",
+                required: true,
+                description: "Player username",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "OrderTime",
+                type: "datetime",
+                required: true,
+                description: "Bet order time",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TransGuid",
+                type: "string",
+                required: true,
+                description: "Bet transguid. Bet request and Settle request using same TransGuid",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Stake",
+                type: "decimal",
+                required: true,
+                description: "how much user bet",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProviderId",
+                type: "int",
+                required: true,
+                description: "Game provider Id on 12live",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "GameId",
+                type: "string",
+                required: true,
+                description: "Round Id of game",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ProductType",
+                type: "string",
+                required: true,
+                description: "Game name or Game code",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TableName",
+                type: "string",
+                required: true,
+                description: "Table name of casino or Game code/ Game name on slot..",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ModifyDate",
+                type: "datetime",
+                required: true,
+                description: "Modify date in case resettle we can know when this record resettle.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "EndRound",
+                type: "boolean",
+                required: true,
+                description: "Is this settle end of round",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "BetType",
+                type: "string",
+                required: false,
+                description: "Bet type",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "ReferenceTrans",
+                type: "string",
+                required: false,
+                description: "Reference tranguid",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "10000.23 //",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ApiKey":"{{api_key}}",
+              "action":" voidSettle",
+              "data":[
+                  {
+                      "UserId": 2268242, 
+                      "UserName": "UserName1", 
+                      "OrderTime": "2020-01-07T06:18:53.573Z", 
+                      "TransGuid": "SEXYBCRT_BAC-60107294", 
+                      "Stake": 10.00, 
+                      "ProviderId": 6, 
+                      "GameId": "Mexico-01-GA242010045", 
+                      "ProductType": "MX-LIVE-001", 
+                      "GameType": "LIVE", 
+                      "TableName": "Baccarat",
+                      "PlayType": "",
+                      "ModifyDate": "2020-01-07T06:19:29.477Z",
+                      "EndRound": true,
+                      "BetType": "",
+                      "ReferenceTrans": ""
+                  }
+              ]
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "balance": 1000.20,
+              "data":[
+                  {
+                      "error": 0, 
+                      "transId": "SEXYBCRT_BAC-60107294", 
+                      "userId": 2268242, 
+                      "balance": 1000.20,
+                  }
+              ]
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message"
+              }
+          }
+        ]
+      },
+      {
+        title: "PenddingBets",
+        id: "penddingbets",
+        type: ApiEnum.POST,
+        endpoint: "https://{{api_domain}}/mimigame/PenddingBets",
+        description: "Get bets/settle pending on Mimi side. ",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "The AgentName pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageIndex",
+                type: "string",
+                required: true,
+                description: "This integer denotes the page index that you want to get bet list. Starting with 1.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "PageSize",
+                type: "string",
+                required: false,
+                description: "This value will limit the result of the response. It is optional. If not present, default value for PageSize is 50.",
+                restriction: [],
+                schema: []
+              },
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ApiKey":"{{api_key}}",
+              "AgentName":"{{agent_name}}",
+              "PageIndex": 1,
+              "PageSize" : 20
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "",
+              "balance": 1000.20 ,
+              "data":[
+                  {
+                    "TransGuid": "mm-888888",
+                    "CreationTime": "2021-08-31T10:28:41.907Z",
+                    "ResendCount": 1,
+                    "RequestData": "[{{Canncel bet or Settle data refer 4.3 and 4.4}}]"
+                  }
+              ]
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
+        ]
+      },
+      {
+        title: "ResendBetOrSettle",
+        id: "resendbetorsettle",
+        type: ApiEnum.POST,
+        endpoint: "https://{{api_domain}}/mimigame/ResendBetOrSettle",
+        description: "Resend bet/settle by TransGuids.",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "ApiKey",
+                type: "string",
+                required: true,
+                description: "The key pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "AgentName",
+                type: "string",
+                required: true,
+                description: "The AgentName pre-agreed between fund provider and middleware system.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TransGuids",
+                type: "string",
+                required: true,
+                description: "Transguids need to resend immediately, can resend more than one and separate by the comma character",
+                restriction: [],
+                schema: []
+              },
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Response samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "ApiKey":"{{api_key}}",
+              "AgentName":"{{agent_name}}",
+              "TransGuids": "mm-123,mm-456, " 
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "OK",
+              "data": [
+                  "mm-123 : OK!",
+                  "mm-456 : OK!"
+              ]
+              }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+              }
+          }
+        ]
+      }
     ]
   },
 ]

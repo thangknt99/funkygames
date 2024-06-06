@@ -14,8 +14,6 @@ type TApiContainerProps = {
 
 const ApiContainer = ({data}: TApiContainerProps) => {
   const [isShowResponses, setIsShowResponses] = useState(true)
-  console.log(data);
-  
 
   return (
     <>

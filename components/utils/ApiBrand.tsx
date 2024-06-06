@@ -16,7 +16,7 @@ const ApiBrand = ({type, fromMenu = false}: TApiBrand) => {
       case ApiEnum.POST:
         return "rgb(24, 111, 175)"
       default:
-        return "rgb(47, 129, 50)"
+        return ""
     }
   }
 

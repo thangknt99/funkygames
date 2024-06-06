@@ -15,7 +15,7 @@ const ParamsTable = ({data}: TParamsTableProps) => {
       <h5>{data.name}{data.description && ":"} <span className={styles.note}>{data.description}</span></h5>
       <table className={styles.parameter_table}>
           {data.params.map((item, i) => (
-        <tbody key={i}>
+            <tbody key={i}>
               <tr>
                 <td className={styles.parameter_text}>
                   <span className={styles.noted_table_item}/>
