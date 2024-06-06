@@ -1056,7 +1056,7 @@ export const apiData = [
         id: "getbalance",
         type: ApiEnum.POST,
         endpoint: "https://{{api_domain}}/player/getbalance",
-        description: "",
+        description: "This function returns the balance of a player.",
         parameter: [
           {
             name: "REQUEST BODY SCHEMA",
@@ -1192,7 +1192,7 @@ export const apiData = [
         id: "deposit",
         type: ApiEnum.POST,
         endpoint: "https://{{api_domain}}/player/deposit",
-        description: "",
+        description: "This function allows to deposit money amount to a player.",
         parameter: [
           {
             name: "REQUEST BODY SCHEMA",
@@ -1354,7 +1354,7 @@ export const apiData = [
         id: "withdraw",
         type: ApiEnum.POST,
         endpoint: "https://{{api_domain}}/player/withdraw",
-        description: "",
+        description: "This function allows a player to withdraw money.",
         parameter: [
           {
             name: "REQUEST BODY SCHEMA",
@@ -2831,7 +2831,7 @@ export const apiData = [
         id: "getgamename_(optional)",
         type: ApiEnum.POST,
         endpoint: "https://{{data_domain}}/data/getgamename",
-        description: "",
+        description: "Get name of the game base on the code.",
         parameter: [
           {
             name: "REQUEST BODY SCHEMA",
@@ -2967,7 +2967,7 @@ export const apiData = [
         id: "get_transaction_by_refno",
         type: ApiEnum.POST,
         endpoint: "https://{{data_domain}}/data/ TransactionByRefNo",
-        description: "",
+        description: "When doing deposit or withdraw, the response may contain a field named `TransGuid`. You can use this function to retrieve information of certain transaction base on that TransGuid (in this function, the field TransGuid is called RefNo).",
         parameter: [
           {
             name: "REQUEST BODY SCHEMA",
@@ -3094,7 +3094,7 @@ export const apiData = [
         id: "get_transaction_of_agent",
         type: ApiEnum.POST,
         endpoint: "https://{{data_domain}}/data/ TransactionOfAgent",
-        description: "",
+        description: "Get list of transactions of players under the specified agent, order by created time.",
         parameter: [
           {
             name: "REQUEST BODY SCHEMA",
