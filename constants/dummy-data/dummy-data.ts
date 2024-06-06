@@ -263,32 +263,32 @@ export const data = [
       {
         name: "Provider and game types",
         id: "provider_game_types",
-        type: ApiEnum.POST,
+        type: ApiEnum.NONE,
       },
       {
         name: "Pagination",
         id: "pagination",
-        type: ApiEnum.POST,
+        type: ApiEnum.NONE,
       },
       {
         name: "Language",
         id: "language",
-        type: ApiEnum.POST,
+        type: ApiEnum.NONE,
       },
       {
         name: "Date time in input and output",
         id: "date_time_input_output",
-        type: ApiEnum.POST,
+        type: ApiEnum.NONE,
       },
       {
         name: "Supported timezone",
         id: "supported_timezone",
-        type: ApiEnum.POST,
+        type: ApiEnum.NONE,
       },
       {
         name: "Mimi seamless diagram",
         id: "mimi_seamless_diagram",
-        type: ApiEnum.POST,
+        type: ApiEnum.NONE,
       },
       
     ]
@@ -5886,7 +5886,7 @@ export const apiData = [
                     name: "data",
                     type: "string",
                     required: false,
-                    description: "10000.23 //",
+                    description: "10000.23",
                     restriction: [],
                     schema: []
                   }
@@ -5942,7 +5942,7 @@ export const apiData = [
             json: {
               "error": 0,
               "message": "",
-              "balance": 10000.23 //
+              "balance": 10000.23
               }
           },
           {
@@ -6120,7 +6120,7 @@ export const apiData = [
                     name: "balance",
                     type: "string",
                     required: false,
-                    description: "10000.23 //",
+                    description: "10000.23",
                     restriction: [],
                     schema: []
                   }
@@ -6377,7 +6377,7 @@ export const apiData = [
                     name: "balance",
                     type: "string",
                     required: false,
-                    description: "10000.23 //",
+                    description: "10000.23",
                     restriction: [],
                     schema: []
                   }
@@ -6706,7 +6706,7 @@ export const apiData = [
                     name: "balance",
                     type: "string",
                     required: false,
-                    description: "10000.23 //",
+                    description: "10000.23",
                     restriction: [],
                     schema: []
                   }
@@ -6973,7 +6973,7 @@ export const apiData = [
                     name: "data",
                     type: "string",
                     required: false,
-                    description: "10000.23 //",
+                    description: "10000.23",
                     restriction: [],
                     schema: []
                   }
@@ -7552,7 +7552,7 @@ export const apiData = [
                     name: "data",
                     type: "string",
                     required: false,
-                    description: "10000.23 //",
+                    description: "10000.23",
                     restriction: [],
                     schema: []
                   }
@@ -7817,7 +7817,7 @@ export const apiData = [
                     name: "data",
                     type: "string",
                     required: false,
-                    description: "10000.23 //",
+                    description: "10000.23",
                     restriction: [],
                     schema: []
                   }

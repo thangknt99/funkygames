@@ -24,7 +24,7 @@ type TSample = {
   json: any,
 }
 
-type TResponse = {
+export type TResponse = {
   code: number,
   message: string,
   parameter: TParameter[],

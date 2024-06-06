@@ -2,18 +2,17 @@ import HeadingText from '@/components/utils/HeadingText';
 import ViewDetect from '@/components/utils/ViewDetect';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import styles from '@/components/Home/css/ContentDisplay.module.css'
-import React, { useState } from 'react'
+import React from 'react'
 import { TApiData } from '@/constants/type';
 import ApiBrand from '@/components/utils/ApiBrand';
 import ParamsTable from '@/components/utils/ParamsTable';
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import ResponseItem from './ResponseItem';
 
 type TApiContainerProps = {
   data: TApiData;
 }
 
 const ApiContainer = ({data}: TApiContainerProps) => {
-  const [isShowResponses, setIsShowResponses] = useState(true)
 
   return (
     <>
@@ -51,23 +50,7 @@ const ApiContainer = ({data}: TApiContainerProps) => {
                     Responses
                   </h3>
                   {api.responses.map((response, i) => (
-                    <Box key={i}>
-                      <button className={styles.respond_button} onClick={() => setIsShowResponses(!isShowResponses)}>
-                        <span className={styles.chavron_icon}>
-                          <ChevronDownIcon transition={".2s"} transform={!isShowResponses ? "rotateZ(-90deg)" : "rotateZ(0)"}/>
-                        </span>
-                        <strong>{response.code}</strong>
-                        <span>
-                          <Text ml={1}>{response.message}</Text>
-                        </span>
-                      </button>
-                      {response.parameter.length !== 0 && isShowResponses && <Box p={"10px"}>
-                        {response.parameter.map((para, i) => (
-                          <ParamsTable key={i} data={para}/>
-                        ))}
-                      </Box>}
-                    </Box>
-                  ))}
+                    <ResponseItem response={response} key={i}/>))}
                 </Box>
               </div>
               <div className={styles.next_section}>
