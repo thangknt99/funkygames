@@ -28,6 +28,48 @@ export const data = [
     children: []
   },
   {
+    name: "Appendix",
+    id: "appendix",
+    children: [
+      {
+        name: "Error codes reference",
+        id: "error_codes_reference",
+        type: ApiEnum.NONE,
+      },
+      {
+        name: "Provider and game types",
+        id: "provider_game_types",
+        type: ApiEnum.NONE,
+      },
+      {
+        name: "Pagination",
+        id: "pagination",
+        type: ApiEnum.NONE,
+      },
+      {
+        name: "Language",
+        id: "language",
+        type: ApiEnum.NONE,
+      },
+      {
+        name: "Date time in input and output",
+        id: "date_time_input_output",
+        type: ApiEnum.NONE,
+      },
+      {
+        name: "Supported timezone",
+        id: "supported_timezone",
+        type: ApiEnum.NONE,
+      },
+      {
+        name: "Mimi seamless diagram",
+        id: "mimi_seamless_diagram",
+        type: ApiEnum.NONE,
+      },
+      
+    ]
+  },
+  {
     name: "Account",
     id: "account",
     children: [
@@ -120,17 +162,17 @@ export const data = [
       },
       {
         name: "Get Transaction by RefNo",
-        id: "get_transaction_refno",
+        id: "get_transaction_by_refno",
         type: ApiEnum.POST,
       },
       {
         name: "Get Transaction of Agent",
-        id: "get_transaction_agent",
+        id: "get_transaction_of_agent",
         type: ApiEnum.POST,
       },
       {
         name: "BetListPaginated",
-        id: "betlistpaginated",
+        id: "bet_list_paginated",
         type: ApiEnum.POST,
       },
       {
@@ -140,7 +182,7 @@ export const data = [
       },
       {
         name: "Get Sum of Balance of all players",
-        id: "get_sum_balance_all_players",
+        id: "get_sum_of_balance_of_all_players",
         type: ApiEnum.POST,
       },
       {
@@ -179,7 +221,7 @@ export const data = [
         type: ApiEnum.GET,
       },
       {
-        name: "GetGameHistoryUrlByRoundId",
+        name: "Get Game History Url By RoundId",
         id: "getgamehistoryurlbyroundid",
         type: ApiEnum.POST,
       },
@@ -226,7 +268,7 @@ export const data = [
       },
       {
         name: "UnSettle",
-        id: "unsettle",
+        id: "unSettle",
         type: ApiEnum.POST,
       },
       {
@@ -249,48 +291,6 @@ export const data = [
         id: "resendbetorsettle",
         type: ApiEnum.POST,
       },
-    ]
-  },
-  {
-    name: "Appendix",
-    id: "appendix",
-    children: [
-      {
-        name: "Error codes reference",
-        id: "error_codes_reference",
-        type: ApiEnum.NONE,
-      },
-      {
-        name: "Provider and game types",
-        id: "provider_game_types",
-        type: ApiEnum.NONE,
-      },
-      {
-        name: "Pagination",
-        id: "pagination",
-        type: ApiEnum.NONE,
-      },
-      {
-        name: "Language",
-        id: "language",
-        type: ApiEnum.NONE,
-      },
-      {
-        name: "Date time in input and output",
-        id: "date_time_input_output",
-        type: ApiEnum.NONE,
-      },
-      {
-        name: "Supported timezone",
-        id: "supported_timezone",
-        type: ApiEnum.NONE,
-      },
-      {
-        name: "Mimi seamless diagram",
-        id: "mimi_seamless_diagram",
-        type: ApiEnum.NONE,
-      },
-      
     ]
   },
 ]
@@ -464,7 +464,7 @@ export const apiData = [
     api: [
       {
         title: "CreatePlayer",
-        id: "createplayer",
+        id: "createPlayer",
         type: ApiEnum.POST,
         endpoint: "https://{{api_domain}}/account/createplayer",
         description: "This function is for registering a new player account in middleware system. Every player is binded to an agent. The hierarchy is => Agent -> Player. The new player's default TableLimit is following with player's agent settings.",
@@ -537,7 +537,42 @@ export const apiData = [
               }
             ]
           },
-          
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "string",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
         ],
         sample: [
           {
@@ -570,9 +605,9 @@ export const apiData = [
             contentType: "application/json",
             description: null,
             json: {
-              error: [],
-              message: [],
-              data: []
+              error: 1,//has error if greater than 0
+              message: "corresponding message",
+              data: ""
             }
           }
         ]
@@ -729,7 +764,7 @@ export const apiData = [
 
       {
         title: "RefreshToken",
-        id: "refreshtoken",
+        id: "refreshToken",
         type: ApiEnum.POST,
         endpoint: "https://{{api_domain}}/account/refreshtoken",
         description: "This function is used to get a new token for players who have already got authentication token earlier. This function will invalidate the old token as well.",
@@ -1056,7 +1091,7 @@ export const apiData = [
         id: "getbalance",
         type: ApiEnum.POST,
         endpoint: "https://{{api_domain}}/player/getbalance",
-        description: "This function returns the balance of a player.",
+        description: "",
         parameter: [
           {
             name: "REQUEST BODY SCHEMA",
@@ -1192,7 +1227,7 @@ export const apiData = [
         id: "deposit",
         type: ApiEnum.POST,
         endpoint: "https://{{api_domain}}/player/deposit",
-        description: "This function allows to deposit money amount to a player.",
+        description: "",
         parameter: [
           {
             name: "REQUEST BODY SCHEMA",
@@ -1354,7 +1389,7 @@ export const apiData = [
         id: "withdraw",
         type: ApiEnum.POST,
         endpoint: "https://{{api_domain}}/player/withdraw",
-        description: "This function allows a player to withdraw money.",
+        description: "",
         parameter: [
           {
             name: "REQUEST BODY SCHEMA",
@@ -2831,7 +2866,7 @@ export const apiData = [
         id: "getgamename_(optional)",
         type: ApiEnum.POST,
         endpoint: "https://{{data_domain}}/data/getgamename",
-        description: "Get name of the game base on the code.",
+        description: "",
         parameter: [
           {
             name: "REQUEST BODY SCHEMA",
@@ -2967,7 +3002,7 @@ export const apiData = [
         id: "get_transaction_by_refno",
         type: ApiEnum.POST,
         endpoint: "https://{{data_domain}}/data/ TransactionByRefNo",
-        description: "When doing deposit or withdraw, the response may contain a field named `TransGuid`. You can use this function to retrieve information of certain transaction base on that TransGuid (in this function, the field TransGuid is called RefNo).",
+        description: "",
         parameter: [
           {
             name: "REQUEST BODY SCHEMA",
@@ -3094,7 +3129,7 @@ export const apiData = [
         id: "get_transaction_of_agent",
         type: ApiEnum.POST,
         endpoint: "https://{{data_domain}}/data/ TransactionOfAgent",
-        description: "Get list of transactions of players under the specified agent, order by created time.",
+        description: "",
         parameter: [
           {
             name: "REQUEST BODY SCHEMA",
@@ -3313,7 +3348,7 @@ export const apiData = [
       },
       {
         title: "BetListPaginated",
-        id: "betlistpaginated",
+        id: "bet_list_paginated",
         type: ApiEnum.POST,
         endpoint: "https://{{data_domain}}/data/BetListPaginated",
         description: "Like the BetListBy function but add more field in the response: `Count`. This will let client paginate data.",
@@ -5239,7 +5274,7 @@ export const apiData = [
         ]
       },
       {
-        title: "GetGameHistoryUrlByRoundId",
+        title: "Get Game History Url By RoundId",
         id: "getgamehistoryurlbyroundid",
         type: ApiEnum.POST,
         endpoint: "https://{{data_domain}}/data/get-game-history-url-by-roundid",
@@ -5421,7 +5456,7 @@ export const apiData = [
       },
       {
         title: "MMG-OutStandingBets",
-        id: "mmg-outstandingbets",
+        id: "mmg_outstandingbets",
         type: ApiEnum.POST,
         endpoint: "https://{{data_domain}}/data/mmg-outstandingbets",
         description: "",
@@ -6473,7 +6508,7 @@ export const apiData = [
       },
       {
         title: "Settle Bet",
-        id: "place_bet",
+        id: "settle_bet",
         type: ApiEnum.POST,
         endpoint: "",
         description: "Sending transactions when had settled.",

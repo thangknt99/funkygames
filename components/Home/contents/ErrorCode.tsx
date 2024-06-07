@@ -1,12 +1,13 @@
 import HeadingText from '@/components/utils/HeadingText'
 import ViewDetect from '@/components/utils/ViewDetect'
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Link, Text } from '@chakra-ui/react'
 import React from 'react'
 import styles from '../css/ContentDisplay.module.css'
+import { handleScrollToElement } from '@/helpers/HandleScrollToElement'
 
 const ErrorCode = () => {
   return (
-      <ViewDetect id='error_code'>
+      <ViewDetect id='error_code' threshold={0.7}>
         <div className={styles.section}>
           <Flex>
             <div className={styles.inside_section}>
@@ -15,7 +16,7 @@ const ErrorCode = () => {
           </Flex>
           <div className={styles.inside_section}>
             <Text my={"1em"}>
-            See Error Codes Appendix.
+            See <Link color={"blue"} onClick={() => handleScrollToElement("error_codes_reference")}>Error Codes Appendix.</Link>
             </Text>
           </div>
         </div>

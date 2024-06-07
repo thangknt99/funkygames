@@ -1,30 +1,23 @@
 "use client"
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, Flex, Image, Popover, PopoverTrigger, Select, Text } from '@chakra-ui/react'
-import React, { useEffect, useMemo, useState } from 'react'
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Flex, Image, Text } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 import SearchIcon from "@/public/svg/search-icon.svg"
 import styles from "./css/SideMenu.module.css"
 import { data } from '@/constants/dummy-data/dummy-data'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/configurations/redux/store'
 import ApiBrand from '../utils/ApiBrand'
-import { CheckCircleIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import PopoverSelect from './side-menu/PopoverSelect'
+import { handleScrollToElement } from '@/helpers/HandleScrollToElement'
+
+const numberDataPreview = data.filter(item => item.children.length > 0).length
 
 const SideMenu = () => {
   const {currentContentSection} = useSelector((state: RootState) => state.client)
   const [currentMenuIndex, setCurrentMenuIndex] = useState<number|number[]>(-1)
 
-  const handleMenuSelect = (id: string) => {
-    const violation = document.getElementById(id); 
-    if (violation) {
-      window.scrollTo({
-        top: violation?.offsetTop - 100,
-      });
-    }
-  }
-
   useEffect(() => {
-    const dataSliced = data.slice(8)
+    const dataSliced = data.slice(numberDataPreview)
     const indexFirstTime = dataSliced.findIndex(item => item.children.some((child) => child.id === currentContentSection))
     const indexSecondTime = dataSliced.findIndex(item => item.id == currentContentSection)
     
@@ -62,7 +55,7 @@ const SideMenu = () => {
             if (item.children.length === 0) return (<Flex key={i} sx={menuItem} 
                 color={currentContentSection === item.id ? "rgb(50, 50, 159)" : "rgb(51, 51, 51)"} 
                 bgColor={currentContentSection === item.id ? "rgb(225, 225, 225)" : "rgb(250, 250, 250)"}
-                onClick={() => handleMenuSelect(item.id)}
+                onClick={() => handleScrollToElement(item.id)}
                 >
                 <Text w={"auto"} verticalAlign={"middle"} overflow={"hidden"} textOverflow={"ellipsis"}>
                   {item.name}
@@ -74,7 +67,7 @@ const SideMenu = () => {
                 justifyContent={'space-between'}
                 color={currentContentSection === item.id ? "rgb(50, 50, 159)" : "rgb(51, 51, 51)"} 
                 bgColor={currentContentSection === item.id ? "rgb(225, 225, 225)" : "rgb(250, 250, 250)"}
-                onClick={() => handleMenuSelect(item.id)}
+                onClick={() => handleScrollToElement(item.id)}
                 >
                 <Text w={"auto"} verticalAlign={"middle"} overflow={"hidden"} textOverflow={"ellipsis"}>
                   {item.name}
@@ -86,20 +79,17 @@ const SideMenu = () => {
                       <Flex sx={menuItem} justifyContent={"flex-start"} key={i}
                         color={currentContentSection === child.id ? "rgb(50, 50, 159)" : "rgb(51, 51, 51)"} 
                         bgColor={currentContentSection === child.id ? "rgb(225, 225, 225)" : "rgb(250, 250, 250)"}
-                        onClick={() => handleMenuSelect(child.id)}>
-                        {child.type && <ApiBrand type={child.type} fromMenu={true}/>}
+                        onClick={() => handleScrollToElement(child.id)}>
+                        {child.type ? <ApiBrand type={child.type} fromMenu={true}/> : <Box w={"15px"}/>}
                         {child.name}
                       </Flex>
                     ))}
                   </AccordionPanel>}
                 </AccordionItem>)
               })}
+          <PopoverSelect/>
         </ul>
       </Accordion>
-      <PopoverSelect/>
-      {/* <Select size={"sm"} _focusVisible={{outline: "none"}} placeholder='Select Provider'>
-        <option value='option1'>MIMI</option>
-      </Select> */}
     </Flex>
   )
 }
