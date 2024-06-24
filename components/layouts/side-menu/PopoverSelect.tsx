@@ -1,33 +1,39 @@
+import { clientAction } from '@/configurations/redux/client-slice'
+import { handleScrollToElement } from '@/helpers/HandleScrollToElement'
+import { useOutsideClick } from '@/hooks/useOutsideHandler'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { Button, Flex, Image, Popover, PopoverContent, PopoverTrigger, Text } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useRef } from 'react'
+import { useDispatch } from 'react-redux'
 
 const PopoverSelect = () => {
-  const [currentProvider, setCurrentProvider] = useState({
-    name: "Select Provider",
-    value: "",
-    img: ""
-  })
+  const popoverRef = useRef<any>(null)
+  const dispatch = useDispatch()
 
   return (
     <Popover>
-      {({ isOpen, onClose }) => (
-        <>
+      {({ isOpen, onClose }) => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useOutsideClick(popoverRef, onClose)
+
+        return (<>
           <PopoverTrigger>
             <Button sx={popoverButton}>
               <Flex minW={"100%"} borderRadius={"10px"} alignItems={'center'} justifyContent={'space-between'}>
-                <Text fontWeight={400} fontSize={"14px"}>{currentProvider.name ? currentProvider.name : "Select Provider"}</Text>
+                <Text fontWeight={400} fontSize={"14px"}>Seamless API</Text>
                 <ChevronDownIcon/>    
               </Flex>
             </Button>
           </PopoverTrigger>
-          <PopoverContent py={"5px"} _focusVisible={{ outline: "none" }} overflow={"auto"} maxW={"260px"}>
+          <PopoverContent py={"5px"} _focusVisible={{ outline: "none" }} overflow={"auto"} maxW={"260px"}
+            ref={popoverRef}>
             {providers.map((provider, i) => (
               <Flex key={i} borderBottom={"1px solid #e5e5e5"} alignItems={'center'} px={"10px"} transition={".2s"} 
                 cursor={'pointer'}
                 _hover={{ bgColor: "#eee" }}
-                onClick={() => {
-                  setCurrentProvider(provider)
+                onClick={async () => {
+                  await dispatch(clientAction.setCurrentProvider(provider))
+                  handleScrollToElement(provider.id)
                   onClose()
                 }}>
                 <Text px={"10px"}>{provider.name}</Text>
@@ -35,8 +41,8 @@ const PopoverSelect = () => {
               </Flex>
             ))}
           </PopoverContent>
-        </>
-      )}
+        </>)
+      }}
     </Popover>
   )
 }
@@ -45,30 +51,61 @@ export default PopoverSelect
 
 const providers = [
   {
-    name: "Select Provider",
-    value: "",
+    name: "PragmaticPlay",
+    id: "pragmaticplay",
+    img: ""
+  },
+  {
+    name: "AWC",
+    id: "awc",
+    img: ""
+  },
+  {
+    name: "Cookfight",
+    id: "cookfight",
     img: ""
   },
   {
     name: "MIMI",
-    value: "MIMI",
-    img: "/images/MimiLogo.png"
+    id: "mimi",
+    img: ""
+  },
+  {
+    name: "Red Tiger",
+    id: "red_tiger",
+    img: ""
+  },
+  {
+    name: "PGSoft",
+    id: "pgsoft",
+    img: ""
+  },
+  {
+    name: "WM Live",
+    id: "wm_live",
+    img: ""
   },
   {
     name: "JILI",
-    value: "JILI",
-    img: "/images/Logo-Jili.png"
+    id: "jili",
+    img: ""
   },
   {
-    name: "King Maker",
-    value: "King Maker",
-    img: "/images/117.png"
+    name: "AdvantPlay",
+    id: "advantplay",
+    img: ""
   },
   {
-    name: "JDB",
-    value: "JDB",
-    img: "/images/41.png"
+    name: "Funky",
+    id: "funky",
+    img: ""
   },
+  {
+    name: "Spade Gaming",
+    id: "spade_gaming",
+    img: ""
+  },
+ 
 ]
 
 const popoverButton = {

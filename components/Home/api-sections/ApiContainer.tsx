@@ -1,6 +1,6 @@
 import HeadingText from '@/components/utils/HeadingText';
 import ViewDetect from '@/components/utils/ViewDetect';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, ChakraProps, Flex, Text } from '@chakra-ui/react';
 import styles from '@/components/Home/css/ContentDisplay.module.css'
 import React from 'react'
 import { TApiData } from '@/constants/type';
@@ -8,11 +8,11 @@ import ApiBrand from '@/components/utils/ApiBrand';
 import ParamsTable from '@/components/utils/ParamsTable';
 import ResponseItem from './ResponseItem';
 
-type TApiContainerProps = {
+type TApiContainerProps = ChakraProps & {
   data: TApiData;
 }
 
-const ApiContainer = ({data}: TApiContainerProps) => {
+const ApiContainer = ({data, ...props}: TApiContainerProps) => {
 
   return (
     <>
@@ -28,7 +28,7 @@ const ApiContainer = ({data}: TApiContainerProps) => {
       {data.api.map((api, i) => (
         <ViewDetect threshold={0.4} id={api.id} key={i}>
           <div className={styles.section}>
-            <Flex>
+            <Flex flexDir={['column', 'column','row','row']}>
               <div className={styles.inside_section}>
                 <Box mb={"20px"}>
                   <h2>{api.title}</h2>
@@ -40,7 +40,7 @@ const ApiContainer = ({data}: TApiContainerProps) => {
                   </button>
                 </Box>
                 <Box mb={"30px"} mt={"10px"}>
-                  <Text>{api.description}</Text>
+                  <Text className={styles.descriptionText} >{api.description}</Text>
                 </Box>
                 {api.parameter.map((item, i) => (
                   <ParamsTable key={i} data={item}/>

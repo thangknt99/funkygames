@@ -15,14 +15,9 @@ const Preview = () => {
   return (
     <>
       <div className={styles.section}>
-        <Flex>
           <div className={styles.inside_section}>
-            <HeadingText mb={"0.5em"}>Funky API Document for GameProvider</HeadingText>
-            <p>
-              Download OpenAPI specification: <a target='_blank' href='https://funkygames-specs.com/api/swagger/GameProvider/en/swagger.json' className={styles.download_button}>Download</a>
-            </p>
+            <HeadingText mb={"0.5em"}>MIMI Gaming API Document for GameProvider</HeadingText>
           </div>
-        </Flex>
       </div>
       <Introduction/>
       <Overview/>
