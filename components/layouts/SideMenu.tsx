@@ -88,7 +88,9 @@ const SideMenu = () => {
             <PopoverSelect/>
             {providerMenu.map((item, i) => (
               <MenuAccordion data={item} key={i} onClick={() => disableMenuOpen()} 
-                display={item.id === currentProvider.id ? "block" : "none"}/>
+                display={item.id === currentProvider.id ? "block" : "none"}>
+                <Box w={"15px"}/>
+              </MenuAccordion>
             ))}
           </ul>
         </Accordion>
@@ -114,10 +116,10 @@ const menuItem = {
   display:"flex",
   cursor:'pointer',
   transition:"all .3s",
-  fontSize:"0.929em",
+  fontSize:"0.97em",
   textTransform:'none',
   p:"12.5px 20px",
-  fontFamily:"Montserrat, sans-serif",
+  fontFamily:"Roboto",
   _hover: {
     color: "rgb(50, 50, 159)",
     bgColor: "rgb(225, 225, 225)"

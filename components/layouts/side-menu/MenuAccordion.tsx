@@ -2,18 +2,21 @@ import ApiBrand from '@/components/utils/ApiBrand'
 import { RootState } from '@/configurations/redux/store'
 import { ApiEnum } from '@/constants/enum'
 import { handleScrollToElement } from '@/helpers/HandleScrollToElement'
-import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, ChakraProps, Flex, Text } from '@chakra-ui/react'
-import React from 'react'
+import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Center, ChakraProps, Flex, Image, Text } from '@chakra-ui/react'
+import React, { ReactNode } from 'react'
 import { useSelector } from 'react-redux'
 
 type TMenuAccordion = ChakraProps & {
   data: {name: string, id: string, children: {name: string, id: string, type: ApiEnum}[]},
+  children?: ReactNode,
   onParentClick?: () => void,
   onClick?: () => void,
 }
 
-const MenuAccordion = ({data, onClick, onParentClick, ...props}: TMenuAccordion) => {
-  const {currentContentSection} = useSelector((state: RootState) => state.client)
+const MenuAccordion = ({data, onClick, onParentClick, children, ...props}: TMenuAccordion) => {
+  const {currentContentSection, currentProvider} = useSelector((state: RootState) => state.client)
+
+  console.log(currentProvider);
 
   return (
     <AccordionItem border={"0px solid #fff"} {...props}>
@@ -26,9 +29,14 @@ const MenuAccordion = ({data, onClick, onParentClick, ...props}: TMenuAccordion)
           onParentClick && onParentClick()
         }}
         >
-        <Text w={"auto"} verticalAlign={"middle"} overflow={"hidden"} textOverflow={"ellipsis"}>
-          {data.name}
-        </Text>
+        <Center>
+          {children}
+          <Text w={"auto"} verticalAlign={"middle"} overflow={"hidden"} textOverflow={"ellipsis"}>
+            {data.name}
+          </Text>
+          {currentProvider?.img && currentProvider.id === data.id && 
+            <Image pl={"10px"} alt='provider' src={currentProvider?.img} w={"60px"} h={"30px"} objectFit={"contain"}/>}
+        </Center>
         {data.children.length > 0 && <AccordionIcon />}
           </AccordionButton>
           {data.children.length > 0 && <AccordionPanel padding={0}>
@@ -40,6 +48,7 @@ const MenuAccordion = ({data, onClick, onParentClick, ...props}: TMenuAccordion)
                   handleScrollToElement(child.id)
                   onClick && onClick()
                 }}>
+                {children}
                 {child.type ? <ApiBrand type={child.type} fromMenu={true}/> : <Box w={"15px"}/>}
                 {child.name}
               </Flex>
@@ -55,10 +64,10 @@ const menuItem = {
   display:"flex",
   cursor:'pointer',
   transition:"all .3s",
-  fontSize:"0.929em",
+  fontSize:"0.97em",
   textTransform:'none',
   p:"12.5px 20px",
-  fontFamily:"Montserrat, sans-serif",
+  fontFamily:"Roboto",
   _hover: {
     color: "rgb(50, 50, 159)",
     bgColor: "rgb(225, 225, 225)"

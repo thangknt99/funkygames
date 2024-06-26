@@ -2,7 +2,7 @@ import { clientAction } from '@/configurations/redux/client-slice'
 import { handleScrollToElement } from '@/helpers/HandleScrollToElement'
 import { useOutsideClick } from '@/hooks/useOutsideHandler'
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import { Button, Flex, Image, Popover, PopoverContent, PopoverTrigger, Text } from '@chakra-ui/react'
+import { Flex, Image, Popover, PopoverContent, PopoverTrigger, Text } from '@chakra-ui/react'
 import React, { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -18,25 +18,23 @@ const PopoverSelect = () => {
 
         return (<>
           <PopoverTrigger>
-            <Button sx={popoverButton}>
-              <Flex minW={"100%"} borderRadius={"10px"} alignItems={'center'} justifyContent={'space-between'}>
-                <Text fontWeight={400} fontSize={"14px"}>Seamless API</Text>
-                <ChevronDownIcon/>    
-              </Flex>
-            </Button>
+            <Flex sx={menuItem} minW={"100%"} alignItems={'center'} justifyContent={'space-between'}>
+              <Text>Seamless API</Text>
+              <ChevronDownIcon fontSize={"18px"}/>    
+            </Flex>
           </PopoverTrigger>
           <PopoverContent py={"5px"} _focusVisible={{ outline: "none" }} overflow={"auto"} maxW={"260px"}
             ref={popoverRef}>
             {providers.map((provider, i) => (
               <Flex key={i} borderBottom={"1px solid #e5e5e5"} alignItems={'center'} px={"10px"} transition={".2s"} 
                 cursor={'pointer'}
-                _hover={{ bgColor: "#eee" }}
+                _hover={{ bgColor: "#eee"}}
                 onClick={async () => {
                   await dispatch(clientAction.setCurrentProvider(provider))
                   handleScrollToElement(provider.id)
                   onClose()
                 }}>
-                <Text px={"10px"}>{provider.name}</Text>
+                <Text p={"10px"}>{provider.name}</Text>
                 {provider.img && <Image alt={provider.name} src={provider.img} h={"12px"}/>}
               </Flex>
             ))}
@@ -53,70 +51,85 @@ const providers = [
   {
     name: "PragmaticPlay",
     id: "pragmaticplay",
-    img: ""
+    img: "/images/PP-logo.png"
   },
   {
     name: "AWC",
     id: "awc",
-    img: ""
+    img: "/images/awc.png"
   },
   {
-    name: "Cookfight",
+    name: "Cockfight",
     id: "cookfight",
-    img: ""
+    img: "/images/sv388cockfight.png"
   },
   {
     name: "MIMI",
     id: "mimi",
-    img: ""
+    img: "/images/MimiLogo.png"
   },
   {
     name: "Red Tiger",
     id: "red_tiger",
-    img: ""
+    img: "/images/REDTIGER-logo.png"
   },
   {
     name: "PGSoft",
     id: "pgsoft",
-    img: ""
+    img: "/images/POCKET-logo.png"
   },
   {
     name: "WM Live",
     id: "wm_live",
-    img: ""
+    img: "/images/wm.png"
   },
   {
     name: "JILI",
     id: "jili",
-    img: ""
+    img: "/images/Logo-Jili.png"
   },
   {
     name: "AdvantPlay",
     id: "advantplay",
-    img: ""
+    img: "/images/advantPlay.png"
   },
   {
     name: "Funky",
     id: "funky",
-    img: ""
+    img: "/images/funky.png"
   },
   {
     name: "Spade Gaming",
     id: "spade_gaming",
-    img: ""
+    img: "/images/spade-games.png"
   },
  
 ]
 
-const popoverButton = {
-  h:"35px",
-  w: "100%",
-  color:"#344050",
-  border:"1px solid #d8e2ef",
-  borderRadius:"0.25rem",
-  boxShadow:"inset 0 1px 2px rgba(0, 0, 0, 0.075)",
-  lineHeight:1.5,
-  _focusVisible: {
-    outline: "none"
+// const popoverButton = {
+//   w: "100%",
+//   color:"#344050",
+//   boxShadow:"inset 0 1px 2px rgba(0, 0, 0, 0.075)",
+//   lineHeight:1.5,
+//   _focusVisible: {
+//     outline: "none"
+//   },
+//   _hover: {
+//     color: "rgb(50, 50, 159)",
+//     bgColor: "rgb(225, 225, 225)"
+//   }
+// }
+
+const menuItem = {
+  display:"flex",
+  cursor:'pointer',
+  transition:"all .3s",
+  fontSize:"0.97em",
+  textTransform:'none',
+  p:"12.5px 20px",
+  fontFamily:"Roboto",
+  _hover: {
+    color: "rgb(50, 50, 159)",
+    bgColor: "rgb(225, 225, 225)"
   }
 }
