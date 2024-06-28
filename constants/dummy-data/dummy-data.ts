@@ -227,7 +227,7 @@ export const data = [
     ]
   },
   {
-    name: "Transfers",
+    name: "Transfers API",
     id: "transfers",
     children: [
       
