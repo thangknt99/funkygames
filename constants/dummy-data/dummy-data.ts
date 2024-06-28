@@ -99,21 +99,6 @@ export const data = [
         type: ApiEnum.POST,
       },
       {
-        name: "GetBalance",
-        id: "getbalance",
-        type: ApiEnum.POST,
-      },
-      {
-        name: "Deposit",
-        id: "deposit",
-        type: ApiEnum.POST,
-      },
-      {
-        name: "Withdraw",
-        id: "withdraw",
-        type: ApiEnum.POST,
-      },
-      {
         name: "GetGameUrl",
         id: "getgameurl",
         type: ApiEnum.POST,
@@ -240,7 +225,29 @@ export const data = [
         type: ApiEnum.POST,
       },
     ]
-  }
+  },
+  {
+    name: "Transfers",
+    id: "transfers",
+    children: [
+      
+      {
+        name: "GetBalance",
+        id: "getbalance",
+        type: ApiEnum.POST,
+      },
+      {
+        name: "Deposit",
+        id: "deposit",
+        type: ApiEnum.POST,
+      },
+      {
+        name: "Withdraw",
+        id: "withdraw",
+        type: ApiEnum.POST,
+      },
+    ]
+  },
 ]
 
 export const providerMenu = [

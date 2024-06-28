@@ -5,7 +5,6 @@ import styles from "./css/SideMenu.module.css"
 import { data, providerMenu } from '@/constants/dummy-data/dummy-data'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/configurations/redux/store'
-import PopoverSelect from './side-menu/PopoverSelect'
 import { handleScrollToElement } from '@/helpers/HandleScrollToElement'
 import MenuAccordion from './side-menu/MenuAccordion'
 import MenuUpIco from "@/public/svg/menu_up.svg"
@@ -85,7 +84,6 @@ const SideMenu = () => {
                     dispatch(clientAction.setCurrentProvider(""))
                   }}/>)
                 })}
-            <PopoverSelect/>
             {providerMenu.map((item, i) => (
               <MenuAccordion data={item} key={i} onClick={() => disableMenuOpen()} 
                 display={item.id === currentProvider.id ? "block" : "none"}>
