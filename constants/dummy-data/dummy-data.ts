@@ -115,7 +115,7 @@ export const data = [
       {
         name: "8.5 Get pending rounds in Pragmatic Play (Optional)",
         id: "get_pending_rounds_in_pragmatic_play_(optional)",
-        type: ApiEnum.POST,
+        type: ApiEnum.GET,
       },
     ]
   },
@@ -1377,466 +1377,6 @@ export const apiData = [
               data: ""
               }
             }
-        ]
-      },
-      {
-        title: "10.1 GetBalance",
-        id: "getbalance",
-        type: ApiEnum.POST,
-        endpoint: "https://{{api_domain}}/player/getbalance",
-        description: "",
-        parameter: [
-          {
-            name: "REQUEST BODY SCHEMA",
-            description: "application/json",
-            params: [
-              {
-                name: "UserName",
-                type: "string",
-                required: true,
-                description: "Username of the player",
-                restriction: [],
-                schema: []
-              }
-            ]
-          }
-        ],
-        responses: [
-          {
-            code: 200,
-            message: "Success",
-            parameter: [
-              {
-                name: "RESPONSE SCHEMA",
-                description: "application/json",
-                params: [
-                  {
-                    name: "error",
-                    type: "integer",
-                    required: false,
-                    description: "0",
-                    restriction: [],
-                    schema: []
-                  },
-                  {
-                    name: "message",
-                    type: "string",
-                    required: false,
-                    description: "Success",
-                    restriction: [],
-                    schema: []
-                  },
-                  {
-                    name: "data",
-                    type: "object",
-                    required: false,
-                    description: "",
-                    restriction: [],
-                    schema: [
-                      {
-                        name: "Balance",
-                        type: "number",
-                        required: false,
-                        description: "10.00"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            code: 500,
-            message: "InternalServer",
-            parameter: [
-              {
-                name: "RESPONSE SCHEMA",
-                description: "application/json",
-                params: [
-                  {
-                    name: "error",
-                    type: "string",
-                    required: false,
-                    description: "1 //has error if greater than 0",
-                    restriction: [],
-                    schema: []
-                  },
-                  {
-                    name: "message",
-                    type: "string",
-                    required: false,
-                    description: "corresponding message",
-                    restriction: [],
-                    schema: []
-                  },
-                  {
-                    name: "data",
-                    type: "object",
-                    required: false,
-                    description: "",
-                    restriction: [],
-                    schema: []
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        sample: [
-          {
-            name: "Request samples",
-            payload: "Payload",
-            contentType: "application/json",
-            json: {
-              "UserName":"username"
-            }
-          },
-          {
-            name: "Request samples",
-            payload: "200",
-            contentType: "application/json",
-            json: {
-              error: 0,
-              message: "Success",
-              data: {
-                "Balance": 10.00
-              }
-            }
-          },
-          {
-            name: "Response samples",
-            payload: "500",
-            contentType: "application/json",
-            json: {
-              error : 1, //has error if greater than 0
-              message: "corresponding message",
-              data: ""
-              }
-            }
-        ]
-      },
-      {
-        title: "10.2 Deposit",
-        id: "deposit",
-        type: ApiEnum.POST,
-        endpoint: "https://{{api_domain}}/player/deposit",
-        description: "",
-        parameter: [
-          {
-            name: "REQUEST BODY SCHEMA",
-            description: "application/json",
-            params: [
-              {
-                name: "UserName",
-                type: "string",
-                required: true,
-                description: "Username of the player",
-                restriction: [],
-                schema: []
-              },
-              {
-                name: "Amount",
-                type: "string",
-                required: true,
-                description: "The amount of money to be used for deposit to the specified player. It is a decimal number in format of a string.",
-                restriction: [],
-                schema: []
-              },
-              {
-                name: "TransGuid",
-                type: "string",
-                required: false,
-                description: "Your unique transguid, TransGuid must have less or equal than 50 characters and only contain \"a-z\", \"0-9\", \"-\"",
-                restriction: [],
-                schema: []
-              }
-            ]
-          },
-        ],
-        responses: [
-          {
-            code: 200,
-            message: "OK",
-            parameter: [
-              {
-                name: "RESPONSE SCHEMA",
-                description: "application/json",
-                params: [
-                  {
-                    name: "error",
-                    type: "integer",
-                    required: false,
-                    description: "0",
-                    restriction: [],
-                    schema: []
-                  },
-                  {
-                    name: "message",
-                    type: "string",
-                    required: false,
-                    description: "Success",
-                    restriction: [],
-                    schema: []
-                  },
-                  {
-                    name: "data",
-                    type: "object",
-                    required: false,
-                    description: "",
-                    restriction: [],
-                    schema: [
-                      {
-                        name: "Balance",
-                        type: "string",
-                        required: false,
-                        description: "1000.00 // This balance is the balance after the deposit"
-                      },
-                      {
-                        name: "TransGuid",
-                        type: "string",
-                        required: false,
-                        description: "somecode"
-                      }
-                    ]
-                  }
-                ]
-              },
-              
-            ]
-          },
-          {
-            code: 500,
-            message: "InternalServer",
-            parameter: [
-              {
-                name: "RESPONSE SCHEMA",
-                description: "application/json",
-                params: [
-                  {
-                    name: "error",
-                    type: "string",
-                    required: false,
-                    description: "1 //has error if greater than 0",
-                    restriction: [],
-                    schema: []
-                  },
-                  {
-                    name: "message",
-                    type: "string",
-                    required: false,
-                    description: "corresponding message",
-                    restriction: [],
-                    schema: []
-                  },
-                  {
-                    name: "data",
-                    type: "object",
-                    required: false,
-                    description: "",
-                    restriction: [],
-                    schema: []
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        sample: [
-          {
-            name: "Request samples",
-            payload: "Payload",
-            contentType: "application/json",
-            json: {
-              "UserName":"username",
-              "Amount": 1000.6,
-              "TransGuid": "<Your TransGuid>"
-            }
-          },
-          {
-            name: "Response sample",
-            payload: "200",
-            contentType: "application/json",
-            json: {
-              error: 0,
-              message:"Success",
-              data: {
-                "Balance": 1000.00, // This balance is the balance after the deposit
-                "TransGuid": "somecode"
-              }
-            }
-          },
-          {
-            name: "Response samples",
-            payload: "500",
-            contentType: "application/json",
-            json: {
-              error : 1, //has error if greater than 0
-              message: "corresponding message",
-              data: ""
-              }
-            },
-        ]
-      },
-      {
-        title: "10.3 Withdraw",
-        id: "withdraw",
-        type: ApiEnum.POST,
-        endpoint: "https://{{api_domain}}/player/withdraw",
-        description: "",
-        parameter: [
-          {
-            name: "REQUEST BODY SCHEMA",
-            description: "application/json",
-            params: [
-              {
-                name: "UserName",
-                type: "string",
-                required: true,
-                description: "Username of the player",
-                restriction: [],
-                schema: []
-              },
-              {
-                name: "Amount",
-                type: "string",
-                required: true,
-                description: "The amount of money to be used for withdrawal from the specified player. It is a decimal number in format of a string.",
-                restriction: [],
-                schema: []
-              },
-              {
-                name: "TransGuid",
-                type: "string",
-                required: false,
-                description: "Your unique transguid, TransGuid must have less or equal than 50 characters and only contain \"a-z\", \"0-9\", \"-\"",
-                restriction: [],
-                schema: []
-              }
-            ]
-          }
-        ],
-        responses: [
-          {
-            code: 200,
-            message: "OK",
-            parameter: [
-              {
-                name: "RESPONSE SCHEMA",
-                description: "application/json",
-                params: [
-                  {
-                    name: "error",
-                    type: "integer",
-                    required: false,
-                    description: "0",
-                    restriction: [],
-                    schema: []
-                  },
-                  {
-                    name: "message",
-                    type: "string",
-                    required: false,
-                    description: "Success",
-                    restriction: [],
-                    schema: []
-                  },
-                  {
-                    name: "data",
-                    type: "object",
-                    required: false,
-                    description: "",
-                    restriction: [],
-                    schema: [
-                      {
-                        name: "Balance",
-                        type: "string",
-                        required: false,
-                        description: "900.00 // This balance is the balance after the withdrawal"
-                      },
-                      {
-                        name: "TransGuid",
-                        type: "string",
-                        required: false,
-                        description: "<Your TransGuid>"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            code: 500,
-            message: "InternalServer",
-            parameter: [
-              {
-                name: "RESPONSE SCHEMA",
-                description: "application/json",
-                params: [
-                  {
-                    name: "error",
-                    type: "string",
-                    required: false,
-                    description: "1 //has error if greater than 0",
-                    restriction: [],
-                    schema: []
-                  },
-                  {
-                    name: "message",
-                    type: "string",
-                    required: false,
-                    description: "corresponding message",
-                    restriction: [],
-                    schema: []
-                  },
-                  {
-                    name: "data",
-                    type: "object",
-                    required: false,
-                    description: "",
-                    restriction: [],
-                    schema: []
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        sample: [
-          {
-            name: "Request samples",
-            payload: "Payload",
-            contentType: "application/json",
-            json: {
-              "UserName":"username",
-              "Amount": 100.5,
-              "TransGuid": "<Your TransGuid>"
-            }
-          },
-          {
-            name: "Response samples",
-            payload: "200",
-            contentType: "application/json",
-            json: {
-              "error": 0,
-              "message": "Success",
-              "data": {
-                  "Balance": 900.00, // This balance is the balance after the withdrawal
-                  "TransGuid": "<Your TransGuid>"
-              }
-            }
-          },
-          {
-            name: "Response samples",
-            payload: "500",
-            contentType: "application/json",
-            json: {
-              "error": 1, //has error if greater than 0
-              "message": "corresponding message",
-              "data": ""
-
-            }
-          }
         ]
       },
       {
@@ -6197,6 +5737,473 @@ export const apiData = [
       },
     ]
   },
+  {
+    title: "10. Transfers API",
+    id: "transfers",
+    api: [
+      {
+        title: "10.1 GetBalance",
+        id: "getbalance",
+        type: ApiEnum.POST,
+        endpoint: "https://{{api_domain}}/player/getbalance",
+        description: "",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "UserName",
+                type: "string",
+                required: true,
+                description: "Username of the player",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "Success",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "Success",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "object",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: [
+                      {
+                        name: "Balance",
+                        type: "number",
+                        required: false,
+                        description: "10.00"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "object",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Request samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "UserName":"username"
+            }
+          },
+          {
+            name: "Request samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              error: 0,
+              message: "Success",
+              data: {
+                "Balance": 10.00
+              }
+            }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              error : 1, //has error if greater than 0
+              message: "corresponding message",
+              data: ""
+              }
+            }
+        ]
+      },
+      {
+        title: "10.2 Deposit",
+        id: "deposit",
+        type: ApiEnum.POST,
+        endpoint: "https://{{api_domain}}/player/deposit",
+        description: "",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "UserName",
+                type: "string",
+                required: true,
+                description: "Username of the player",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Amount",
+                type: "string",
+                required: true,
+                description: "The amount of money to be used for deposit to the specified player. It is a decimal number in format of a string.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TransGuid",
+                type: "string",
+                required: false,
+                description: "Your unique transguid, TransGuid must have less or equal than 50 characters and only contain \"a-z\", \"0-9\", \"-\"",
+                restriction: [],
+                schema: []
+              }
+            ]
+          },
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "Success",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "object",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: [
+                      {
+                        name: "Balance",
+                        type: "string",
+                        required: false,
+                        description: "1000.00 // This balance is the balance after the deposit"
+                      },
+                      {
+                        name: "TransGuid",
+                        type: "string",
+                        required: false,
+                        description: "somecode"
+                      }
+                    ]
+                  }
+                ]
+              },
+              
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "object",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Request samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "UserName":"username",
+              "Amount": 1000.6,
+              "TransGuid": "<Your TransGuid>"
+            }
+          },
+          {
+            name: "Response sample",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              error: 0,
+              message:"Success",
+              data: {
+                "Balance": 1000.00, // This balance is the balance after the deposit
+                "TransGuid": "somecode"
+              }
+            }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              error : 1, //has error if greater than 0
+              message: "corresponding message",
+              data: ""
+              }
+            },
+        ]
+      },
+      {
+        title: "10.3 Withdraw",
+        id: "withdraw",
+        type: ApiEnum.POST,
+        endpoint: "https://{{api_domain}}/player/withdraw",
+        description: "",
+        parameter: [
+          {
+            name: "REQUEST BODY SCHEMA",
+            description: "application/json",
+            params: [
+              {
+                name: "UserName",
+                type: "string",
+                required: true,
+                description: "Username of the player",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "Amount",
+                type: "string",
+                required: true,
+                description: "The amount of money to be used for withdrawal from the specified player. It is a decimal number in format of a string.",
+                restriction: [],
+                schema: []
+              },
+              {
+                name: "TransGuid",
+                type: "string",
+                required: false,
+                description: "Your unique transguid, TransGuid must have less or equal than 50 characters and only contain \"a-z\", \"0-9\", \"-\"",
+                restriction: [],
+                schema: []
+              }
+            ]
+          }
+        ],
+        responses: [
+          {
+            code: 200,
+            message: "OK",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "integer",
+                    required: false,
+                    description: "0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "Success",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "object",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: [
+                      {
+                        name: "Balance",
+                        type: "string",
+                        required: false,
+                        description: "900.00 // This balance is the balance after the withdrawal"
+                      },
+                      {
+                        name: "TransGuid",
+                        type: "string",
+                        required: false,
+                        description: "<Your TransGuid>"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            code: 500,
+            message: "InternalServer",
+            parameter: [
+              {
+                name: "RESPONSE SCHEMA",
+                description: "application/json",
+                params: [
+                  {
+                    name: "error",
+                    type: "string",
+                    required: false,
+                    description: "1 //has error if greater than 0",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "message",
+                    type: "string",
+                    required: false,
+                    description: "corresponding message",
+                    restriction: [],
+                    schema: []
+                  },
+                  {
+                    name: "data",
+                    type: "object",
+                    required: false,
+                    description: "",
+                    restriction: [],
+                    schema: []
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        sample: [
+          {
+            name: "Request samples",
+            payload: "Payload",
+            contentType: "application/json",
+            json: {
+              "UserName":"username",
+              "Amount": 100.5,
+              "TransGuid": "<Your TransGuid>"
+            }
+          },
+          {
+            name: "Response samples",
+            payload: "200",
+            contentType: "application/json",
+            json: {
+              "error": 0,
+              "message": "Success",
+              "data": {
+                  "Balance": 900.00, // This balance is the balance after the withdrawal
+                  "TransGuid": "<Your TransGuid>"
+              }
+            }
+          },
+          {
+            name: "Response samples",
+            payload: "500",
+            contentType: "application/json",
+            json: {
+              "error": 1, //has error if greater than 0
+              "message": "corresponding message",
+              "data": ""
+
+            }
+          }
+        ]
+      },
+    ]
+  }
+
 ]
 
 export const apiProvider = [
