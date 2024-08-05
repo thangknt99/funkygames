@@ -748,6 +748,13 @@ export const changeLog = [
   "Add redirectUrl in getgameUrl Api",
 ], modifydate: "23-Jun-2023"},
 
+{version: "3.0.7",	changelog:  [
+  "Update API document Seamless versions",
+], modifydate: "02-May-2024"},
+
+{version: "3.0.8",	changelog:  [
+  "Update API document web versions",
+], modifydate: "17-Jul-2024"},
 ]
 
 export const apiData = [
