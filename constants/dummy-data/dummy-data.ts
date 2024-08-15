@@ -1440,7 +1440,7 @@ export const apiData = [
                 description: "This field is optional and dedicated to SexyBaccarat of AWC.If this field presents, please make sure to enter from 1 to 3 bet limit ids. For the available bet limit ids, please refer to the attached excel file (ask our technical team)"
               },
               {
-                name: "Language",
+                name: "RedirectUrl",
                 type: "string",
                 required: true,
                 description: "The parameter RedirectUrl is necessary for overwriting the original behavior of Close game button."
@@ -1648,7 +1648,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Request samples",
+            name: "Response samples",
             payload: "200",
             contentType: "application/json",
             json: {
@@ -2141,7 +2141,7 @@ export const apiData = [
             }
           },
           {
-            name: "Request samples",
+            name: "Response samples",
             payload: "500",
             contentType: "application/json",
             json: {
@@ -2462,7 +2462,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -2675,7 +2675,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -2844,7 +2844,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -2988,7 +2988,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -3185,7 +3185,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -3399,7 +3399,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -3591,7 +3591,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -3769,7 +3769,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -3979,7 +3979,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -4157,7 +4157,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -4331,7 +4331,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -4527,7 +4527,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -4757,7 +4757,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -4970,7 +4970,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -5125,7 +5125,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -5321,7 +5321,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -5470,7 +5470,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -5680,7 +5680,7 @@ export const apiData = [
         ],
         sample: [
           {
-            name: "Response samples",
+            name: "Request samples",
             payload: "Payload",
             contentType: "application/json",
             json: {
@@ -5861,7 +5861,7 @@ export const apiData = [
             }
           },
           {
-            name: "Request samples",
+            name: "Response samples",
             payload: "200",
             contentType: "application/json",
             json: {
@@ -20792,8 +20792,8 @@ export const language = [
   {value: "zh-tw",	description: (["Traditional Chinese"])},
   {value: "zh-cn",	description: (["Simplified Chinese"])},
   {value: "th-th",	description: (["Thai"])},
-  {value: "id-id",	description: (["Indonesia"])},
-  {value: "vi-vn",	description: (["Viet Nam"])},
+  {value: "id",	description: (["Indonesia"])},
+  {value: "vi",	description: (["Viet Nam"])},
 ]
 
 export const timezone = [
